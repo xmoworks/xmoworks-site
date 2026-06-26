@@ -105,6 +105,14 @@ h1 {
   font-weight: 700;
 }
 
+.early-access-note {
+  margin: 12px auto 0;
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 .actions {
   margin-top: 36px;
   display: flex;
@@ -167,6 +175,10 @@ footer .note {
 
   .tagline {
     font-size: 19px;
+  }
+
+  .early-access-note {
+    font-size: 15px;
   }
 
   .button {
