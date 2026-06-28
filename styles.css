@@ -1,40 +1,47 @@
 :root {
   --bg: #0f172a;
-  --card: #111827;
-  --card-light: rgba(255, 255, 255, 0.05);
+  --card: rgba(17, 24, 39, 0.74);
+  --card-soft: rgba(255, 255, 255, 0.045);
   --text: #f8fafc;
   --muted: #cbd5e1;
+  --muted-2: #94a3b8;
   --accent: #38bdf8;
-  --accent-dark: #0284c7;
+  --accent-2: #7dd3fc;
   --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(56, 189, 248, 0.42);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 32%),
-    radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.16), transparent 32%),
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.16), transparent 34%),
     var(--bg);
   color: var(--text);
   min-height: 100vh;
 }
 
 .page {
+  width: 100%;
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 48px 20px 36px;
 }
 
 .hero {
   width: 100%;
   max-width: 960px;
-  margin: 40px auto 0;
+  margin: 0 auto;
   padding: 56px;
-  background: rgba(17, 24, 39, 0.74);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 28px;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
@@ -56,7 +63,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(48px, 9vw, 96px);
+  font-size: clamp(52px, 9vw, 96px);
   line-height: 0.95;
   letter-spacing: -0.06em;
 }
@@ -102,7 +109,7 @@ h1 {
   border-radius: 999px;
   text-decoration: none;
   font-weight: 700;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
 }
 
 .button:hover {
@@ -120,25 +127,47 @@ h1 {
   background: rgba(255, 255, 255, 0.05);
 }
 
+.secondary:hover {
+  border-color: var(--border-strong);
+}
+
 .feature-section {
+  width: 100%;
   max-width: 1120px;
   margin: 42px auto 0;
+  padding: 38px;
+  background: rgba(17, 24, 39, 0.46);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
 }
 
 .section-header {
-  max-width: 760px;
-  margin: 0 auto 24px;
+  max-width: 820px;
+  margin: 0 auto 28px;
   text-align: center;
+}
+
+.section-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .section-header h2 {
   margin: 0;
-  font-size: clamp(28px, 4vw, 42px);
-  letter-spacing: -0.03em;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
 }
 
 .section-header p {
-  margin: 14px auto 0;
+  margin: 16px auto 0;
   color: var(--muted);
   font-size: 17px;
   line-height: 1.7;
@@ -151,19 +180,20 @@ h1 {
 }
 
 .feature-card {
-  position: relative;
-  min-height: 220px;
+  min-height: 230px;
   padding: 26px;
-  background: rgba(17, 24, 39, 0.68);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
   border: 1px solid var(--border);
   border-radius: 22px;
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.16);
 }
 
 .feature-card.highlight {
-  border-color: rgba(56, 189, 248, 0.55);
+  border-color: var(--border-strong);
   background:
-    linear-gradient(145deg, rgba(56, 189, 248, 0.12), rgba(17, 24, 39, 0.72));
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(56, 189, 248, 0.10), rgba(255, 255, 255, 0.025));
 }
 
 .feature-label {
@@ -179,9 +209,15 @@ h1 {
   letter-spacing: 0.08em;
 }
 
+.muted-label {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted-2);
+}
+
 .feature-card h3 {
   margin: 0;
   font-size: 23px;
+  line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
@@ -211,15 +247,18 @@ footer .note {
   .features {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .feature-section {
+    padding: 28px;
+  }
 }
 
 @media (max-width: 640px) {
   .page {
-    padding: 28px 16px;
+    padding: 28px 16px 28px;
   }
 
   .hero {
-    margin-top: 18px;
     padding: 38px 24px;
     border-radius: 22px;
   }
@@ -234,6 +273,12 @@ footer .note {
 
   .button {
     width: 100%;
+  }
+
+  .feature-section {
+    margin-top: 28px;
+    padding: 24px;
+    border-radius: 22px;
   }
 
   .features {
