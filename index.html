@@ -17,6 +17,25 @@
   <meta property="og:url" content="https://xmoworks.ae" />
 
   <link rel="stylesheet" href="styles.css?v=2" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKJ7YTRE01"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HKJ7YTRE01');
+
+    function trackClick(eventName, eventLabel) {
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, {
+          event_category: 'button_click',
+          event_label: eventLabel
+        });
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -39,15 +58,33 @@
       </p>
 
       <div class="actions">
-        <a href="https://forms.gle/eXnnU4kMWnLzo7CK9" class="button primary" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://forms.gle/eXnnU4kMWnLzo7CK9"
+          class="button primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="trackClick('click_xmo_finder', 'Try XMO Finder')"
+        >
           Try XMO Finder
         </a>
 
-        <a href="https://forms.gle/yjWWWgabeujFs8mC6" class="button secondary" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://forms.gle/yjWWWgabeujFs8mC6"
+          class="button secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="trackClick('click_early_access', 'Join Early Access')"
+        >
           Join Early Access
         </a>
 
-        <a href="https://www.linkedin.com/company/xmo-works/" class="button secondary" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://www.linkedin.com/company/xmo-works/"
+          class="button secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="trackClick('click_linkedin', 'Follow on LinkedIn')"
+        >
           Follow on LinkedIn
         </a>
       </div>
