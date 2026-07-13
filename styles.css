@@ -289,3 +289,68 @@ footer .note {
     min-height: auto;
   }
 }
+
+.trust-section {
+  width: 100%;
+  max-width: 1120px;
+  margin: 42px auto 0;
+}
+
+.trust-card {
+  padding: 38px;
+  background: rgba(17, 24, 39, 0.46);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.trust-card h2 {
+  margin: 0 0 24px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.trust-item {
+  padding: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+
+.trust-item h3 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.trust-item p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+.trust-item a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .trust-card {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+}
