@@ -495,3 +495,52 @@ footer .note {
     font-size: 18px;
   }
 }
+
+.insights-section {
+  width: 100%;
+  max-width: 1120px;
+  margin: 42px auto 0;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.insight-item {
+  display: block;
+  padding: 28px;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.03));
+  text-decoration: none;
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.16);
+}
+
+.insight-item h3 {
+  margin: 10px 0 12px;
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.insight-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.insight-item span {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.insight-item:hover {
+  transform: translateY(-2px);
+}
