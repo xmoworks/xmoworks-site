@@ -378,3 +378,120 @@ footer .note {
     grid-template-columns: 1fr;
   }
 }
+
+.article-shell {
+  min-height: 100vh;
+}
+
+.site-header {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-mark {
+  color: var(--text);
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+}
+
+.nav-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.article-page {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.article-card {
+  padding: 46px;
+  background: rgba(17, 24, 39, 0.46);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.article-card h1 {
+  margin: 12px 0 14px;
+  font-size: clamp(42px, 6vw, 66px);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.article-meta {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.article-lead {
+  font-size: 21px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.article-card h2 {
+  margin: 42px 0 12px;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+
+.article-card p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.article-card blockquote {
+  margin: 28px 0;
+  padding: 22px 26px;
+  border-left: 4px solid var(--accent);
+  background: rgba(255, 255, 255, 0.055);
+  border-radius: 18px;
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 750;
+}
+
+.article-cta {
+  margin-top: 46px;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03));
+}
+
+.article-cta h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding: 0 4px;
+  }
+
+  .article-card {
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .article-lead {
+    font-size: 18px;
+  }
+}
