@@ -544,3 +544,304 @@ footer .note {
 .insight-item:hover {
   transform: translateY(-2px);
 }
+
+/* =========================================================
+   XMO WORKS — BRAND REFRESH v1
+   ========================================================= */
+
+:root {
+  --bg: #0f172a;
+  --card: rgba(15, 23, 42, 0.82);
+  --card-soft: rgba(248, 250, 252, 0.045);
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --muted-2: #94a3b8;
+  --accent: #d4a017;
+  --accent-2: #e7bd4f;
+  --slate: #64748b;
+  --border: rgba(226, 232, 240, 0.13);
+  --border-strong: rgba(212, 160, 23, 0.48);
+}
+
+body {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(212, 160, 23, 0.13),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(100, 116, 139, 0.22),
+      transparent 35%
+    ),
+    var(--bg);
+}
+
+h1,
+h2,
+h3,
+.badge,
+.button,
+.section-kicker,
+.feature-label {
+  font-family: "Poppins", "Inter", Arial, sans-serif;
+}
+
+/* Navigation */
+
+.site-nav {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto 28px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.site-nav-brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-nav-logo {
+  display: block;
+  width: 180px;
+  max-height: 54px;
+  object-fit: contain;
+}
+
+.site-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.site-nav-links a {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.site-nav-links a:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Hero */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 23, 42, 0.94),
+      rgba(17, 24, 39, 0.78)
+    );
+  border-color: rgba(212, 160, 23, 0.2);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  right: -15%;
+  width: 48%;
+  height: 150%;
+  opacity: 0.12;
+  transform: rotate(18deg);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 18%,
+      var(--accent) 18% 28%,
+      transparent 28% 42%,
+      var(--accent) 42% 54%,
+      transparent 54%
+    );
+  pointer-events: none;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-brand {
+  margin: 0 auto 24px;
+}
+
+.hero-logo {
+  display: block;
+  width: min(470px, 82vw);
+  max-height: 190px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.badge {
+  color: var(--accent);
+  border-color: rgba(212, 160, 23, 0.42);
+  background: rgba(212, 160, 23, 0.07);
+}
+
+.tagline,
+.section-kicker,
+.insight-item span,
+.trust-item a,
+.nav-link:hover {
+  color: var(--accent);
+}
+
+/* Buttons */
+
+.primary {
+  color: var(--bg);
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent-2),
+      var(--accent)
+    );
+  box-shadow: 0 12px 30px rgba(212, 160, 23, 0.2);
+}
+
+.primary:hover {
+  box-shadow: 0 16px 38px rgba(212, 160, 23, 0.28);
+}
+
+.secondary {
+  color: var(--text);
+  border-color: rgba(226, 232, 240, 0.15);
+  background: rgba(248, 250, 252, 0.045);
+}
+
+.secondary:hover {
+  border-color: var(--border-strong);
+  background: rgba(212, 160, 23, 0.065);
+}
+
+/* Cards and labels */
+
+.feature-card.highlight {
+  border-color: var(--border-strong);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(212, 160, 23, 0.17),
+      transparent 43%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(212, 160, 23, 0.08),
+      rgba(248, 250, 252, 0.025)
+    );
+}
+
+.feature-label {
+  color: var(--accent);
+  background: rgba(212, 160, 23, 0.12);
+}
+
+.muted-label {
+  color: var(--muted-2);
+  background: rgba(248, 250, 252, 0.055);
+}
+
+.feature-card,
+.trust-item,
+.insight-item,
+.article-card,
+.article-cta {
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.feature-card:hover,
+.trust-item:hover,
+.insight-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(212, 160, 23, 0.3);
+  box-shadow: 0 22px 58px rgba(0, 0, 0, 0.22);
+}
+
+/* Footer */
+
+.site-footer {
+  position: relative;
+  max-width: 1120px;
+  margin-top: 42px;
+  padding: 34px 24px 20px;
+  overflow: hidden;
+  border-top: 1px solid rgba(212, 160, 23, 0.25);
+}
+
+.site-footer-logo {
+  display: block;
+  width: 210px;
+  max-height: 76px;
+  margin: 0 auto 20px;
+  object-fit: contain;
+}
+
+/* Accessibility */
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .site-nav {
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .site-nav-logo {
+    width: 165px;
+  }
+
+  .site-nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .site-nav-links a {
+    font-size: 13px;
+  }
+
+  .hero-logo {
+    width: min(390px, 88vw);
+  }
+
+  .site-footer-logo {
+    width: 185px;
+  }
+}
