@@ -16,8 +16,19 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://xmoworks.ae" />
 
-<link rel="stylesheet" href="styles.css?v=4" />
-  
+<link rel="icon" href="assets/brand/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" href="assets/brand/xmo-icon.png" />
+<link rel="apple-touch-icon" href="assets/brand/xmo-icon.png" />
+<meta name="theme-color" content="#0F172A" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="styles.css?v=5" />  
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKJ7YTRE01"></script>
   <script>
@@ -40,10 +51,33 @@
 
 <body>
   <main class="page">
+    <header class="site-nav">
+      <a class="site-nav-brand" href="index.html" aria-label="XMO Works home">
+        <img
+          src="assets/brand/xmo-logo-dark.png"
+          alt="XMO Works"
+          class="site-nav-logo"
+        />
+      </a>
+    
+      <nav class="site-nav-links" aria-label="Primary navigation">
+        <a href="#what-we-build">What we build</a>
+        <a href="#insights">Insights</a>
+        <a href="#trust">About</a>
+      </nav>
+    </header>
     <section class="hero">
       <div class="badge">MVP Now Live</div>
 
-      <h1>XMO Works</h1>
+      <div class="hero-brand">
+        <img
+          src="assets/brand/xmo-logo-dark.png"
+          alt="XMO Works"
+          class="hero-logo"
+        />
+      </div>
+      
+      <h1 class="sr-only">XMO Works</h1>
 
       <p class="subtitle">
         AI-powered systems for modern management offices.
@@ -90,7 +124,7 @@
       </div>
     </section>
 
-    <section class="feature-section">
+    <section class="feature-section" id="what-we-build">
       <div class="section-header">
         <div class="section-kicker">What we are building</div>
         <h2>Practical tools for modern project delivery.</h2>
@@ -150,7 +184,7 @@
       </div>
     </section>
 
-    <section class="insights-section">
+    <section class="insights-section" id="insights">
       <div class="trust-card">
         <div class="section-header">
           <div class="section-kicker">Insights</div>
@@ -173,7 +207,7 @@
       </div>
     </section>
     
-    <section class="trust-section">
+    <section class="trust-section" id="trust">
       <div class="trust-card">
         <div class="section-header">
           <div class="section-kicker">Trust & feedback</div>
@@ -216,10 +250,20 @@
       </div>
     </section>
 
-    <footer>
+    <footer class="site-footer">
+      <a href="index.html" aria-label="XMO Works home">
+        <img
+          src="assets/brand/xmo-logo-dark.png"
+          alt="XMO Works"
+          class="site-footer-logo"
+        />
+      </a>
+    
       <p>© 2026 XMO Works. All rights reserved.</p>
+    
       <p class="note">
-        XMO Works is an independent platform and is not affiliated with PMI, PMBOK, PRINCE2, or any standards body unless expressly stated.
+        XMO Works is an independent platform and is not affiliated with PMI,
+        PMBOK, PRINCE2, or any standards body unless expressly stated.
       </p>
     </footer>
   </main>
