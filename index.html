@@ -4,7 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XMO Works | Project and PMO Operating Systems</title>
-  <meta name="description" content="Run projects with clarity whether you have a PMO, a one-person PMO, or no PMO at all.">
+  <meta name="description" content="XMO Works helps growing companies and management offices prioritize work, reduce reporting effort, strengthen governance and turn project information into decisions.">
+  <link rel="canonical" href="https://xmoworks.ae/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XMO Works">
+  <meta property="og:title" content="XMO Works | Project and PMO Operating Systems">
+  <meta property="og:description" content="Practical operating systems for growing companies and management offices. Stop reporting projects. Start proving value.">
+  <meta property="og:url" content="https://xmoworks.ae/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="XMO Works | Project and PMO Operating Systems">
+  <meta name="twitter:description" content="Practical operating systems for growing companies and management offices. Stop reporting projects. Start proving value.">
   <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/brand/xmo-icon.png">
   <meta name="theme-color" content="#0F172A">
@@ -12,6 +21,54 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/xmo-v2.css?v=1">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://xmoworks.ae/#organization",
+        "name": "XMO Works",
+        "url": "https://xmoworks.ae/",
+        "email": "hello@xmoworks.ae",
+        "description": "XMO Works helps growing companies and management offices prioritize work, reduce reporting effort, strengthen governance and turn project information into decisions.",
+        "knowsAbout": [
+          "Project Management Office",
+          "Enterprise Project Management Office",
+          "Portfolio Management",
+          "Transformation Management Office",
+          "Value Management Office",
+          "Project Governance",
+          "Portfolio Governance",
+          "Benefits Realization",
+          "AI-enabled project reporting"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://xmoworks.ae/#website",
+        "url": "https://xmoworks.ae/",
+        "name": "XMO Works",
+        "publisher": {"@id": "https://xmoworks.ae/#organization"}
+      },
+      {
+        "@type": "Service",
+        "@id": "https://xmoworks.ae/#project-pmo-operating-systems",
+        "name": "Project and PMO Operating Systems",
+        "provider": {"@id": "https://xmoworks.ae/#organization"},
+        "url": "https://xmoworks.ae/",
+        "description": "Practical operating systems for organizations with no formal PMO, lean one- or two-person PMOs, and established PMOs, EPMOs, TMOs and portfolio offices.",
+        "serviceType": [
+          "PMO operating-system design",
+          "Portfolio governance",
+          "Management-office diagnostics",
+          "Decision-cycle improvement",
+          "Project and portfolio reporting improvement"
+        ]
+      }
+    ]
+  }
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HKJ7YTRE01"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -20,13 +77,12 @@
     gtag('config','G-HKJ7YTRE01');
   </script>
   <script src="/assets/js/xmo-site.js?v=1" defer></script>
-  
 </head>
 <body data-page="/" >
   <div class="xmo-shell">
     <header class="xmo-nav">
       <a href="/" aria-label="XMO Works home"><img class="xmo-logo" src="/assets/brand/xmo-logo-dark.png" alt="XMO Works"></a>
-      <nav class="xmo-nav-links">
+      <nav class="xmo-nav-links" aria-label="Primary navigation">
         <a href="/starter/">Starter</a>
         <a href="/mini/">Mini</a>
         <a href="/decision-cycle/">Decision Cycle</a>
@@ -35,7 +91,80 @@
         <a href="/contact/">Contact</a>
       </nav>
     </header>
-    <main id="app"><section class="xmo-panel xmo-loading"><p>Loading XMO Works…</p></section></main>
+
+    <!--
+      Static semantic fallback intentionally mirrors the published homepage content.
+      The JavaScript application replaces this content after loading. Crawlers and
+      clients that do not execute the application still receive the core meaning.
+    -->
+    <main id="app">
+      <section class="xmo-hero xmo-panel">
+        <div class="xmo-eyebrow">XMO Works</div>
+        <h1>Run projects with clarity — whether you have a PMO, a one-person PMO, or no PMO at all.</h1>
+        <p class="xmo-lead">Practical operating systems for growing companies and management offices.</p>
+        <p class="xmo-copy">XMO Works helps organizations prioritize work, reduce reporting effort, strengthen governance and turn project information into decisions.</p>
+        <p class="xmo-tagline">Stop reporting projects. Start proving value.</p>
+        <div class="xmo-actions">
+          <a class="xmo-btn xmo-btn-primary" href="/finder/">Start XMO Finder</a>
+          <a class="xmo-btn xmo-btn-secondary" href="/contact/">Contact XMO Works</a>
+        </div>
+      </section>
+
+      <section class="xmo-section" aria-labelledby="starting-point-heading">
+        <div class="xmo-section-heading">
+          <div class="xmo-eyebrow">Choose your starting point</div>
+          <h2 id="starting-point-heading">Different organizations need different levels of management-office capability.</h2>
+          <p>Start with the problem you actually have — not a label.</p>
+        </div>
+        <div class="xmo-product-grid">
+          <article class="xmo-product-card">
+            <div class="xmo-product-code">XMO Starter</div>
+            <h3>Put your company projects under control without building a heavyweight PMO.</h3>
+            <p>A lightweight project operating system for growing companies whose initiatives have outgrown informal coordination.</p>
+            <div class="xmo-card-audience"><strong>Built for:</strong> Growing organizations with no formal PMO.</div>
+            <div class="xmo-actions"><a class="xmo-btn xmo-btn-secondary" href="/starter/">Explore XMO Starter</a></div>
+          </article>
+
+          <article class="xmo-product-card">
+            <div class="xmo-product-code">XMO Mini</div>
+            <h3>Run a lean PMO with more leverage and less status chasing.</h3>
+            <p>An AI-enabled operating system for small PMOs that need portfolio visibility, reporting discipline and governance without more headcount.</p>
+            <div class="xmo-card-audience"><strong>Built for:</strong> One- or two-person PMOs.</div>
+            <div class="xmo-actions"><a class="xmo-btn xmo-btn-secondary" href="/mini/">Explore XMO Mini</a></div>
+          </article>
+
+          <article class="xmo-product-card">
+            <div class="xmo-product-code">XMO Decision Cycle</div>
+            <h3>Turn one recurring portfolio governance cycle into a decision-ready operating system.</h3>
+            <p>A focused sprint using the organization’s existing portfolio data and tools to reduce manual preparation and improve executive decision visibility.</p>
+            <div class="xmo-card-audience"><strong>Built for:</strong> Established PMOs, EPMOs, TMOs and portfolio offices.</div>
+            <div class="xmo-actions"><a class="xmo-btn xmo-btn-secondary" href="/decision-cycle/">Explore XMO Decision Cycle</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="xmo-section xmo-panel" aria-labelledby="why-xmo-heading">
+        <div class="xmo-section-heading">
+          <div class="xmo-eyebrow">Why XMO Works</div>
+          <h2 id="why-xmo-heading">The goal is not another dashboard. It is a better management system.</h2>
+          <p>XMO Works is deliberately tool-agnostic and designed to work above the systems you already use.</p>
+        </div>
+        <div class="xmo-list">
+          <div class="xmo-list-item">Use existing project and portfolio data before buying another platform.</div>
+          <div class="xmo-list-item">Focus reporting on decisions, exceptions, priorities, resources and value.</div>
+          <div class="xmo-list-item">Use AI to reduce administrative effort only after the management logic is clear.</div>
+          <div class="xmo-list-item">Build progressively from a lightweight operating system to recurring decision intelligence.</div>
+        </div>
+      </section>
+
+      <section class="xmo-section xmo-cta-panel" aria-labelledby="finder-heading">
+        <div class="xmo-eyebrow">Not sure where you fit?</div>
+        <h2 id="finder-heading">XMO Finder will route you.</h2>
+        <p>Complete the diagnostic and get a score-led interpretation of the strongest frictions in your current project environment.</p>
+        <div class="xmo-actions"><a class="xmo-btn xmo-btn-primary" href="/finder/">Start XMO Finder</a></div>
+      </section>
+    </main>
+
     <footer class="xmo-footer">
       <img class="xmo-footer-logo" src="/assets/brand/xmo-logo-dark.png" alt="XMO Works">
       <div>Stop reporting projects. Start proving value.</div>
