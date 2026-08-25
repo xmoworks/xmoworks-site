@@ -43,6 +43,13 @@
   XMO.sessionId = getSessionId();
   XMO.utm = readUtm();
 
+  const trackedEvents = new Set([
+    "page_view", "cta_click", "link_click", "page_engaged", "scroll_depth",
+    "finder_start", "finder_step", "finder_complete", "finder_completed",
+    "finder_result", "finder_abandon", "early_access_start", "contact_start",
+    "form_start", "form_submit_attempt", "form_submit_success", "form_submit_error"
+  ]);
+
   XMO.api = async function(functionName, options = {}) {
     const method = options.method || "GET";
     const query = options.query ? "?" + new URLSearchParams(options.query).toString() : "";
@@ -58,17 +65,18 @@
   };
 
   XMO.track = function(eventName, extra = {}) {
+    if (!trackedEvents.has(eventName)) return;
     if (typeof window.gtag === "function") {
       window.gtag("event", eventName, extra);
     }
     const body = {
-      event_name: eventName === "page_view" ? "page_view" :
-                  eventName.startsWith("finder_") ? eventName :
-                  eventName === "cta_click" ? "cta_click" : "cta_click",
+      event_name: eventName,
       session_id: XMO.sessionId,
       page_path: location.pathname,
+      page_title: document.title,
       referrer: document.referrer,
       utm: XMO.utm,
+      viewport_width: window.innerWidth,
       ...extra
     };
     XMO.api("site-event", { method: "POST", body }).catch(() => {});
@@ -343,9 +351,51 @@
   }
 
   document.addEventListener("click", e => {
-    const a = e.target.closest("[data-cta-code]");
+    const a = e.target.closest("a[href]");
     if (!a) return;
-    XMO.track("cta_click", { cta_code: a.dataset.ctaCode });
+    const href = a.getAttribute("href") || "";
+    const absolute = new URL(href, location.href);
+    const linkType = href.startsWith("mailto:") ? "email" :
+                     href.startsWith("tel:") ? "phone" :
+                     absolute.origin !== location.origin ? "external" :
+                     "internal";
+    if (a.dataset.ctaCode) XMO.track("cta_click", { cta_code: a.dataset.ctaCode });
+    XMO.track("link_click", {
+      cta_code: a.dataset.ctaCode || "",
+      link_url: absolute.href,
+      link_text: (a.textContent || "").trim().slice(0, 160),
+      link_type: linkType
+    });
+  });
+
+  document.addEventListener("focusin", e => {
+    const form = e.target.closest("form");
+    if (!form || form.dataset.analyticsStarted) return;
+    form.dataset.analyticsStarted = "1";
+    XMO.track("form_start", { form_name: form.id || "unnamed_form" });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const pageKey = "xmo_depth_" + location.pathname;
+    const sentDepths = new Set();
+    window.addEventListener("scroll", () => {
+      const available = document.documentElement.scrollHeight - window.innerHeight;
+      if (available <= 0) return;
+      const depth = Math.min(100, Math.round((window.scrollY / available) * 100));
+      [25, 50, 75, 90].forEach(threshold => {
+        if (depth >= threshold && !sentDepths.has(threshold)) {
+          sentDepths.add(threshold);
+          sessionStorage.setItem(pageKey + "_" + threshold, "1");
+          XMO.track("scroll_depth", { scroll_depth: threshold });
+        }
+      });
+    }, { passive: true });
+
+    window.setTimeout(() => {
+      if (document.visibilityState === "visible") {
+        XMO.track("page_engaged", { engagement_seconds: 30 });
+      }
+    }, 30000);
   });
 
   document.addEventListener("DOMContentLoaded", () => {

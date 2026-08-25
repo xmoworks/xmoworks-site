@@ -9,6 +9,7 @@
     window.XMO.track("early_access_start");
     form.addEventListener("submit", async e => {
       e.preventDefault();
+      window.XMO.track("form_submit_attempt", { form_name: "early_access" });
       const status = form.querySelector(".xmo-form-status");
       const button = form.querySelector("button[type=submit]");
       button.disabled = true;
@@ -27,9 +28,11 @@
           referrer: document.referrer
         };
         await window.XMO.api("early-access-submit",{method:"POST",body:payload});
+        window.XMO.track("form_submit_success", { form_name: "early_access" });
         if (typeof window.gtag === "function") window.gtag("event","early_access_signup");
         form.innerHTML = `<div class="xmo-success"><h2>You're on the list.</h2><p>Thanks. XMO Works will keep the signal high and the noise low.</p></div>`;
       } catch(error) {
+        window.XMO.track("form_submit_error", { form_name: "early_access" });
         status.textContent = "We could not complete the signup. Please try again.";
         button.disabled = false;
         console.error(error);
@@ -45,6 +48,7 @@
     if (urlLane && ["starter","mini","decision_cycle"].includes(urlLane)) form.elements.lane_interest.value = urlLane;
     form.addEventListener("submit", async e => {
       e.preventDefault();
+      window.XMO.track("form_submit_attempt", { form_name: "contact" });
       const status = form.querySelector(".xmo-form-status");
       const button = form.querySelector("button[type=submit]");
       button.disabled = true;
@@ -65,9 +69,11 @@
           referrer: document.referrer
         };
         await window.XMO.api("contact-submit",{method:"POST",body:payload});
+        window.XMO.track("form_submit_success", { form_name: "contact" });
         if (typeof window.gtag === "function") window.gtag("event","contact_submitted");
         form.innerHTML = `<div class="xmo-success"><h2>Received.</h2><p>Thank you. XMO Works will review the problem and follow up where appropriate.</p></div>`;
       } catch(error) {
+        window.XMO.track("form_submit_error", { form_name: "contact" });
         status.textContent = "We could not send the inquiry. Please try again or email hello@xmoworks.ae.";
         button.disabled = false;
         console.error(error);
