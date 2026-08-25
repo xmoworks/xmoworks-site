@@ -277,6 +277,7 @@
   async function submit(e) {
     e.preventDefault();
     if (!validateStep()) return;
+    window.XMO.track("form_submit_attempt", { form_name: "finder" });
     const status = document.querySelector(".xmo-form-status");
     const btn = e.submitter;
     if (btn) btn.disabled = true;
@@ -324,9 +325,11 @@
     try {
       const result = await window.XMO.api("finder-submit-v2", { method:"POST", body:payload });
       window.XMO.track("finder_completed", { lane: state.route });
+      window.XMO.track("form_submit_success", { form_name: "finder" });
       document.getElementById("app").innerHTML = resultHtml(result);
       window.scrollTo({top:0,behavior:"smooth"});
     } catch (error) {
+      window.XMO.track("form_submit_error", { form_name: "finder" });
       status.textContent = "We could not submit your diagnostic. Please try again or contact hello@xmoworks.ae.";
       if (btn) btn.disabled = false;
       console.error(error);
