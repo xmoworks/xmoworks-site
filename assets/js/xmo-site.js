@@ -6,6 +6,37 @@
   XMO.supabaseUrl = "https://ahbjovxatcuoszsxwwzz.supabase.co";
   XMO.anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoYmpvdnhhdGN1b3N6c3h3d3p6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5NTk3MTYsImV4cCI6MjEwMjUzNTcxNn0.0UI_-OwvZY1NxC9dE6dNq1-uOUtiH9WiZEaYcArOIrM";
   XMO.functionsBase = XMO.supabaseUrl + "/functions/v1";
+  XMO.linkedinPartnerId = "9644434";
+  XMO.linkedinFinderConversionId = 29779602;
+
+  function loadLinkedInInsightTag() {
+    window._linkedin_partner_id = XMO.linkedinPartnerId;
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    if (!window._linkedin_data_partner_ids.includes(XMO.linkedinPartnerId)) {
+      window._linkedin_data_partner_ids.push(XMO.linkedinPartnerId);
+    }
+    if (!window.lintrk) {
+      window.lintrk = function(a, b) { window.lintrk.q.push([a, b]); };
+      window.lintrk.q = [];
+    }
+    if (document.querySelector('script[src="https://snap.licdn.com/li.lms-analytics/insight.min.js"]')) return;
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+    document.head.appendChild(script);
+  }
+
+  loadLinkedInInsightTag();
+
+  XMO.trackLinkedInFinderConversion = function(submissionId) {
+    if (!submissionId || typeof window.lintrk !== "function") return false;
+    const dedupeKey = "xmo_li_finder_conversion_" + submissionId;
+    if (sessionStorage.getItem(dedupeKey) === "1") return false;
+    window.lintrk("track", { conversion_id: XMO.linkedinFinderConversionId });
+    sessionStorage.setItem(dedupeKey, "1");
+    return true;
+  };
 
   const apiHeaders = {
     "apikey": XMO.anonKey,
