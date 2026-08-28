@@ -326,6 +326,7 @@
       const result = await window.XMO.api("finder-submit-v2", { method:"POST", body:payload });
       window.XMO.track("finder_completed", { lane: state.route });
       window.XMO.track("form_submit_success", { form_name: "finder" });
+      window.XMO.trackLinkedInFinderConversion?.(payload.submission_id);
       document.getElementById("app").innerHTML = resultHtml(result);
       window.scrollTo({top:0,behavior:"smooth"});
     } catch (error) {
