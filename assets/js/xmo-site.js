@@ -9,7 +9,55 @@
   XMO.linkedinPartnerId = "9644434";
   XMO.linkedinFinderConversionId = 29779602;
 
+  XMO.googleAnalyticsId = "G-HKJ7YTRE01";
+  XMO.consentVersion = 1;
+  const consentKey = "xmo_consent_v1";
+
+  function readConsent() {
+    try {
+      const value = JSON.parse(localStorage.getItem(consentKey) || "null");
+      if (value && value.version === XMO.consentVersion) return value;
+    } catch (_) {}
+    return null;
+  }
+
+  XMO.consent = readConsent();
+  XMO.hasConsent = function(category) {
+    return !!(XMO.consent && XMO.consent[category] === true);
+  };
+
+  function setGoogleConsent(consent) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+    window.gtag("consent", "default", {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      wait_for_update: 500
+    });
+    if (!consent) return;
+    window.gtag("consent", "update", {
+      analytics_storage: consent.analytics ? "granted" : "denied",
+      ad_storage: consent.advertising ? "granted" : "denied",
+      ad_user_data: consent.advertising ? "granted" : "denied",
+      ad_personalization: "denied"
+    });
+  }
+
+  function loadGoogleAnalytics() {
+    if (!XMO.hasConsent("analytics") || document.querySelector('script[data-xmo-google-analytics]')) return;
+    const script = document.createElement("script");
+    script.async = true;
+    script.dataset.xmoGoogleAnalytics = "1";
+    script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(XMO.googleAnalyticsId);
+    document.head.appendChild(script);
+    window.gtag("js", new Date());
+    window.gtag("config", XMO.googleAnalyticsId, { anonymize_ip: true });
+  }
+
   function loadLinkedInInsightTag() {
+    if (!XMO.hasConsent("advertising")) return false;
     window._linkedin_partner_id = XMO.linkedinPartnerId;
     window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
     if (!window._linkedin_data_partner_ids.includes(XMO.linkedinPartnerId)) {
@@ -19,24 +67,105 @@
       window.lintrk = function(a, b) { window.lintrk.q.push([a, b]); };
       window.lintrk.q = [];
     }
-    if (document.querySelector('script[src="https://snap.licdn.com/li.lms-analytics/insight.min.js"]')) return;
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.async = true;
-    script.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-    document.head.appendChild(script);
+    if (!document.querySelector('script[data-xmo-linkedin-insight]')) {
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.dataset.xmoLinkedinInsight = "1";
+      script.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+      document.head.appendChild(script);
+    }
+    return true;
   }
 
-  loadLinkedInInsightTag();
+  function applyConsent() {
+    setGoogleConsent(XMO.consent);
+    if (XMO.hasConsent("analytics")) loadGoogleAnalytics();
+    if (XMO.hasConsent("advertising")) loadLinkedInInsightTag();
+    document.dispatchEvent(new CustomEvent("xmo:consent-updated", { detail: XMO.consent }));
+  }
+
+  XMO.saveConsent = function(analytics, advertising) {
+    XMO.consent = {
+      version: XMO.consentVersion,
+      essential: true,
+      analytics: !!analytics,
+      advertising: !!advertising,
+      updated_at: new Date().toISOString()
+    };
+    localStorage.setItem(consentKey, JSON.stringify(XMO.consent));
+    applyConsent();
+    renderConsentControls(false);
+  };
+
+  function consentPanel(preferences) {
+    const analyticsChecked = XMO.hasConsent("analytics") ? " checked" : "";
+    const advertisingChecked = XMO.hasConsent("advertising") ? " checked" : "";
+    if (preferences) {
+      return '<section class="xmo-consent-panel" role="dialog" aria-modal="true" aria-labelledby="xmo-consent-title">' +
+        '<div class="xmo-consent-copy"><div class="xmo-eyebrow">Privacy choices</div>' +
+        '<h2 id="xmo-consent-title">Choose optional website tracking</h2>' +
+        '<p>Essential storage keeps the site and forms working. Optional tools load only with your choice.</p>' +
+        '<label class="xmo-consent-option"><input type="checkbox" checked disabled> <span><strong>Essential</strong><small>Required for security, forms and your privacy choice.</small></span></label>' +
+        '<label class="xmo-consent-option"><input id="xmo-consent-analytics" type="checkbox"' + analyticsChecked + '> <span><strong>Analytics</strong><small>Google Analytics and first-party usage measurement.</small></span></label>' +
+        '<label class="xmo-consent-option"><input id="xmo-consent-advertising" type="checkbox"' + advertisingChecked + '> <span><strong>Advertising</strong><small>LinkedIn Insight Tag and Finder conversion measurement.</small></span></label>' +
+        '<p class="xmo-consent-note">You can change this anytime. See our <a href="/privacy/">Privacy notice</a>.</p></div>' +
+        '<div class="xmo-consent-actions"><button class="xmo-btn xmo-btn-secondary" type="button" data-xmo-consent-reject>Reject optional</button>' +
+        '<button class="xmo-btn xmo-btn-primary" type="button" data-xmo-consent-save>Save choices</button></div></section>';
+    }
+    return '<section class="xmo-consent-panel" role="dialog" aria-modal="true" aria-labelledby="xmo-consent-title">' +
+      '<div class="xmo-consent-copy"><div class="xmo-eyebrow">Your privacy</div>' +
+      '<h2 id="xmo-consent-title">Choose how XMO Works measures this visit</h2>' +
+      '<p>We use essential storage to operate the site. With your permission, analytics helps us improve it and LinkedIn advertising measurement records campaign conversions.</p>' +
+      '<p class="xmo-consent-note">Optional tools stay off until you choose. See our <a href="/privacy/">Privacy notice</a>.</p></div>' +
+      '<div class="xmo-consent-actions"><button class="xmo-btn xmo-btn-secondary" type="button" data-xmo-consent-reject>Reject optional</button>' +
+      '<button class="xmo-btn xmo-btn-secondary" type="button" data-xmo-consent-manage>Manage choices</button>' +
+      '<button class="xmo-btn xmo-btn-primary" type="button" data-xmo-consent-accept>Accept all</button></div></section>';
+  }
+
+  function renderConsentControls(forceOpen, preferences) {
+    let root = document.getElementById("xmo-consent-root");
+    if (!root) {
+      root = document.createElement("div");
+      root.id = "xmo-consent-root";
+      document.body.appendChild(root);
+    }
+    const needsChoice = !XMO.consent;
+    root.innerHTML = (needsChoice || forceOpen)
+      ? '<div class="xmo-consent-overlay">' + consentPanel(!!preferences) + '</div>'
+      : '<button class="xmo-consent-settings" type="button" data-xmo-consent-manage aria-label="Open privacy choices">Privacy choices</button>';
+  }
+
+  XMO.openConsentPreferences = function() {
+    renderConsentControls(true, true);
+  };
+
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-xmo-consent-accept],[data-xmo-consent-reject],[data-xmo-consent-manage],[data-xmo-consent-save]");
+    if (!target) return;
+    if (target.hasAttribute("data-xmo-consent-accept")) XMO.saveConsent(true, true);
+    if (target.hasAttribute("data-xmo-consent-reject")) XMO.saveConsent(false, false);
+    if (target.hasAttribute("data-xmo-consent-manage")) renderConsentControls(true, true);
+    if (target.hasAttribute("data-xmo-consent-save")) {
+      XMO.saveConsent(
+        !!document.getElementById("xmo-consent-analytics")?.checked,
+        !!document.getElementById("xmo-consent-advertising")?.checked
+      );
+    }
+  });
 
   XMO.trackLinkedInFinderConversion = function(submissionId) {
-    if (!submissionId || typeof window.lintrk !== "function") return false;
+    if (!submissionId || !XMO.hasConsent("advertising") || !loadLinkedInInsightTag() || typeof window.lintrk !== "function") return false;
     const dedupeKey = "xmo_li_finder_conversion_" + submissionId;
     if (sessionStorage.getItem(dedupeKey) === "1") return false;
     window.lintrk("track", { conversion_id: XMO.linkedinFinderConversionId });
     sessionStorage.setItem(dedupeKey, "1");
     return true;
   };
+
+  setGoogleConsent(XMO.consent);
+  applyConsent();
+
 
   const apiHeaders = {
     "apikey": XMO.anonKey,
@@ -63,11 +192,12 @@
       term: params.get("utm_term") || ""
     };
     const hasCurrent = Object.values(current).some(Boolean);
-    if (hasCurrent) localStorage.setItem("xmo_first_utm", JSON.stringify(current));
+    const canPersist = XMO.hasConsent("analytics") || XMO.hasConsent("advertising");
+    if (hasCurrent && canPersist) localStorage.setItem("xmo_first_utm", JSON.stringify(current));
     try {
-      return hasCurrent ? current : JSON.parse(localStorage.getItem("xmo_first_utm") || "{}");
+      return hasCurrent ? current : (canPersist ? JSON.parse(localStorage.getItem("xmo_first_utm") || "{}") : {});
     } catch (_) {
-      return current;
+      return hasCurrent ? current : {};
     }
   }
 
@@ -96,7 +226,7 @@
   };
 
   XMO.track = function(eventName, extra = {}) {
-    if (!trackedEvents.has(eventName)) return;
+    if (!trackedEvents.has(eventName) || !XMO.hasConsent("analytics")) return;
     if (typeof window.gtag === "function") {
       window.gtag("event", eventName, extra);
     }
@@ -407,6 +537,7 @@
   });
 
   document.addEventListener("DOMContentLoaded", () => {
+    renderConsentControls(false);
     const pageKey = "xmo_depth_" + location.pathname;
     const sentDepths = new Set();
     window.addEventListener("scroll", () => {

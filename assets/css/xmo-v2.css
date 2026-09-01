@@ -150,3 +150,66 @@ fieldset.xmo-question legend{padding:0 8px;line-height:1.5}
   .xmo-scale{grid-template-columns:repeat(5,1fr)}
   .xmo-shell{width:min(100% - 20px,1180px)}
 }
+
+
+/* Consent controls */
+.xmo-consent-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.46);
+}
+.xmo-consent-panel {
+  width: min(920px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 26px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.24);
+}
+.xmo-consent-copy { max-width: 620px; }
+.xmo-consent-copy h2 { margin: 6px 0 10px; font-size: clamp(1.25rem, 2vw, 1.65rem); }
+.xmo-consent-copy p { margin: 0; color: #475569; }
+.xmo-consent-note { margin-top: 10px !important; font-size: 0.86rem; }
+.xmo-consent-note a { color: #0f766e; font-weight: 600; }
+.xmo-consent-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; min-width: 250px; }
+.xmo-consent-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 14px;
+  color: #0f172a;
+}
+.xmo-consent-option input { width: 18px; height: 18px; margin-top: 2px; accent-color: #0f766e; }
+.xmo-consent-option span { display: grid; gap: 2px; }
+.xmo-consent-option small { color: #64748b; font-size: 0.84rem; }
+.xmo-consent-settings {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 9999;
+  padding: 8px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #334155;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+  font: 600 0.76rem/1 Inter, sans-serif;
+  cursor: pointer;
+}
+@media (max-width: 760px) {
+  .xmo-consent-overlay { padding: 12px; }
+  .xmo-consent-panel { align-items: stretch; flex-direction: column; gap: 20px; padding: 20px; }
+  .xmo-consent-actions { min-width: 0; justify-content: stretch; }
+  .xmo-consent-actions .xmo-btn { flex: 1 1 100%; }
+}
