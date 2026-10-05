@@ -44,6 +44,9 @@
     const form = document.getElementById("contact-form");
     if (!form) return;
     window.XMO.track("contact_start");
+    const hasMeasurementConsent = () => window.XMO.hasConsent("analytics") || window.XMO.hasConsent("advertising");
+    const validReceiptId = value => typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
+
     const urlLane = new URLSearchParams(location.search).get("lane");
     if (urlLane && ["starter","mini","decision_cycle"].includes(urlLane)) form.elements.lane_interest.value = urlLane;
     form.addEventListener("submit", async e => {
@@ -62,19 +65,22 @@
           job_title: read(form,"job_title"),
           lane_interest: read(form,"lane_interest"),
           message: read(form,"message"),
-          consent_marketing: !!form.elements.consent_marketing.checked,
+          consent_marketing: form.elements.consent_marketing.checked === true,
           session_id: window.XMO.sessionId,
-          utm: window.XMO.utm,
-          page_url: location.href,
-          referrer: document.referrer
+          utm: hasMeasurementConsent() ? window.XMO.utm : {},
+          page_url: hasMeasurementConsent() ? location.href : location.origin + location.pathname,
+          referrer: hasMeasurementConsent() ? document.referrer : ""
         };
-        await window.XMO.api("contact-submit",{method:"POST",body:payload});
+        const receipt = await window.XMO.api("contact-submit",{method:"POST",body:payload});
+        if (receipt?.ok !== true || !validReceiptId(receipt.contact_id) || !validReceiptId(receipt.interaction_id)) {
+          throw new Error("inquiry_receipt_unconfirmed");
+        }
         window.XMO.track("form_submit_success", { form_name: "contact" });
-        if (typeof window.gtag === "function") window.gtag("event","contact_submitted");
+        if (window.XMO.hasConsent("analytics") && typeof window.gtag === "function") window.gtag("event","contact_submitted");
         form.innerHTML = `<div class="xmo-success"><h2>Received.</h2><p>Thank you. XMO Works will review the problem and follow up where appropriate.</p></div>`;
       } catch(error) {
         window.XMO.track("form_submit_error", { form_name: "contact" });
-        status.textContent = "We could not send the inquiry. Please try again or email hello@xmoworks.ae.";
+        status.textContent = "We could not confirm receipt of your inquiry. To avoid sending it twice, please email hello@xmoworks.ae and ask us to check.";
         button.disabled = false;
         console.error(error);
       }
