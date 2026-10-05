@@ -402,6 +402,7 @@
         <div class="xmo-eyebrow">Early Access</div>
         <h1>Follow what XMO Works is building.</h1>
         <p class="xmo-lead">Get practical resources, product updates and selected pilot opportunities.</p>
+        <p class="xmo-mini-note">XMO Works is operated by Speritas Digital LLC. Read our <a href="/privacy/">Privacy notice</a> and <a href="/legal/">company information</a>.</p>
         <form id="early-access-form" class="xmo-form">
           <input type="text" name="website" class="xmo-honeypot" tabindex="-1" autocomplete="off">
           <label>Name <input name="full_name" autocomplete="name"></label>
@@ -428,6 +429,7 @@
         <div class="xmo-eyebrow">Contact</div>
         <h1>Tell us what is consuming management attention.</h1>
         <p class="xmo-lead">We are currently speaking with growing-company leaders, lean PMOs and established portfolio offices for design-partner pilots.</p>
+        <p class="xmo-mini-note">XMO Works is operated by Speritas Digital LLC. Read our <a href="/privacy/">Privacy notice</a> and <a href="/legal/">company information</a>.</p>
         <form id="contact-form" class="xmo-form">
           <input type="text" name="website" class="xmo-honeypot" tabindex="-1" autocomplete="off">
           <label>Name <input name="full_name" autocomplete="name" required></label>
@@ -452,6 +454,10 @@
 
   async function hydratePage() {
     const pageSlug = document.body.dataset.page || "/";
+    if (pageSlug === "/legal/") {
+      XMO.track("page_view");
+      return; // Static legal identity does not depend on CMS hydration.
+    }
     if (document.body.dataset.articleSlug !== undefined || document.body.dataset.articleQuery === "true") {
       await loadArticle();
       XMO.track("page_view");
