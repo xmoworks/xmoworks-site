@@ -267,6 +267,7 @@
         <h1>${escapeHtml(section.heading || "")}</h1>
         ${section.subheading ? `<p class="xmo-lead">${escapeHtml(section.subheading)}</p>` : ""}
         ${b.description ? `<p class="xmo-copy">${escapeHtml(b.description)}</p>` : ""}
+        ${b.availability ? `<p class="xmo-copy">${escapeHtml(b.availability)}</p>` : ""}
         ${b.tagline ? `<p class="xmo-tagline">${escapeHtml(b.tagline)}</p>` : ""}
         ${b.target_outcome ? `<div class="xmo-callout"><strong>Target outcome</strong><br>${escapeHtml(b.target_outcome)}</div>` : ""}
         ${b.estimated_minutes ? `<div class="xmo-mini-note">Estimated time: ${escapeHtml(b.estimated_minutes)}</div>` : ""}
@@ -388,11 +389,11 @@
         <h1>${escapeHtml(a.title)}</h1>
         <p class="xmo-article-meta">XMO Works Insights</p>
         <div class="xmo-article-body">${a.body_html || ""}</div>
-        <div class="xmo-cta-panel xmo-article-cta">
+        ${a.slug === "checking-ai-portfolio-brief" ? "" : `<div class="xmo-cta-panel xmo-article-cta">
           <h2>Find your starting point</h2>
           <p>XMO Finder identifies the strongest management-office friction and routes you to the most appropriate XMO pathway.</p>
           <a class="xmo-btn xmo-btn-primary" href="/finder/" data-cta-code="start_finder">Start XMO Finder</a>
-        </div>
+        </div>`}
       </article>`;
   }
 
@@ -427,9 +428,10 @@
     document.getElementById("app").innerHTML = `
       <section class="xmo-form-shell xmo-panel">
         <div class="xmo-eyebrow">Contact</div>
-        <h1>Tell us what is consuming management attention.</h1>
-        <p class="xmo-lead">We are currently speaking with growing-company leaders, lean PMOs and established portfolio offices for design-partner pilots.</p>
+        <h1>What makes your portfolio review difficult?</h1>
+        <p class="xmo-lead">Tell us about your current review cycle and the decision or reporting problem you want to address. Please avoid confidential project information, client names and sensitive financial details.</p>
         <p class="xmo-mini-note">XMO Works is operated by Speritas Digital LLC. Read our <a href="/privacy/">Privacy notice</a> and <a href="/legal/">company information</a>.</p>
+        <p>Your enquiry is a request to discuss this problem. It does not place an order or guarantee a product demonstration. Marketing updates remain a separate choice.</p>
         <form id="contact-form" class="xmo-form">
           <input type="text" name="website" class="xmo-honeypot" tabindex="-1" autocomplete="off">
           <label>Name <input name="full_name" autocomplete="name" required></label>
@@ -444,12 +446,12 @@
               <option value="decision_cycle">Established PMO / portfolio office</option>
             </select>
           </label>
-          <label>What problem are you trying to solve? <textarea name="message" rows="6" required></textarea></label>
+          <label>Your portfolio review challenge <textarea name="message" rows="6" placeholder="What do you review, how often, and where does the process get stuck? A short description is enough." required></textarea></label>
           <label class="xmo-check"><input name="consent_marketing" type="checkbox"> Send me relevant XMO Works resources and updates.</label>
-          <button class="xmo-btn xmo-btn-primary" type="submit">Send inquiry</button>
+          <button class="xmo-btn xmo-btn-primary" type="submit">Send enquiry</button>
           <div class="xmo-form-status" aria-live="polite"></div>
         </form>
-      </section>`;
+      </section><section class="xmo-section xmo-panel"><h2>Common questions</h2><details><summary>Who is this discussion for?</summary><p>PMO teams and portfolio sponsors who prepare recurring reviews and need clearer decision requests, priorities or follow-through. Describe your situation so suitability can be assessed.</p></details><details><summary>What can I access today?</summary><p>XMO Works publishes practical insights and has a contact route for enquiries. This page does not announce a ready-to-buy Portfolio Review Workflow or a guaranteed demonstration.</p></details><details><summary>What is being evaluated?</summary><p>The Portfolio Review Workflow and its suitability for recurring portfolio reviews. Product capabilities, availability and pricing will be confirmed separately.</p></details><details><summary>What happens after I enquire?</summary><p>Your description provides the starting point for qualification and a relevant reply. Any next discussion or product demonstration will be agreed separately. This page does not promise a fixed response window.</p></details><details><summary>Should I upload project data?</summary><p>No. Start with a brief description without confidential project, client or financial details. Any later information exchange must use an agreed, appropriate route.</p></details><details><summary>Will this subscribe me to marketing?</summary><p>Marketing updates are a separate choice on the form. An enquiry concerns the problem you submit; it is not blanket permission for unrelated marketing.</p></details></section>`;
   }
 
   async function hydratePage() {
@@ -574,3 +576,4 @@
     });
   });
 })();
+
