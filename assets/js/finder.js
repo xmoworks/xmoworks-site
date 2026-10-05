@@ -6,7 +6,7 @@
     config: null,
     route: null,
     answers: {},
-    context: {},
+    context: { diagnostic_contact: false, marketing: false },
     step: 0,
     startedAt: new Date().toISOString()
   };
@@ -135,8 +135,8 @@
       <h2>What matters most now?</h2>
       <div class="xmo-question-stack">${qs.map(renderQuestion).join("")}</div>
       <div class="xmo-consent-box">
-        <label class="xmo-check"><input type="checkbox" name="diagnostic_contact" checked> XMO Works may contact me about this diagnostic result or related follow-up.</label>
-        <label class="xmo-check"><input type="checkbox" name="marketing"> I also want relevant XMO Works resources, product updates and pilot opportunities.</label>
+        <label class="xmo-check"><input type="checkbox" name="diagnostic_contact" ${state.context.diagnostic_contact === true ? "checked" : ""}> XMO Works may contact me about this diagnostic result or related follow-up.</label>
+        <label class="xmo-check"><input type="checkbox" name="marketing" ${state.context.marketing === true ? "checked" : ""}> I also want relevant XMO Works resources, product updates and pilot opportunities.</label>
       </div>
       <input type="text" name="website" class="xmo-honeypot" tabindex="-1" autocomplete="off">
     </div>`;
@@ -190,14 +190,15 @@
     relevant.forEach(q => {
       if (q.question_type === "multi_select") {
         const vals = fd.getAll(q.question_key).map(String);
-        if (vals.length) state.answers[q.question_key] = vals;
+        // Absent controls belong to another step; present unchecked controls mean [].
+        if (form.elements.namedItem(q.question_key)) state.answers[q.question_key] = vals;
       } else if (fd.has(q.question_key)) {
         const val = fd.get(q.question_key);
         if (val !== null && String(val) !== "") state.answers[q.question_key] = q.question_type === "scale_1_5" ? Number(val) : String(val);
       }
     });
-    if (fd.has("diagnostic_contact")) state.context.diagnostic_contact = fd.get("diagnostic_contact") === "on";
-    if (fd.has("marketing")) state.context.marketing = fd.get("marketing") === "on";
+    if (form.elements.namedItem("diagnostic_contact")) state.context.diagnostic_contact = fd.has("diagnostic_contact");
+    if (form.elements.namedItem("marketing")) state.context.marketing = fd.has("marketing");
     if (fd.has("website")) state.context.website = String(fd.get("website") || "");
     return true;
   }
@@ -313,8 +314,8 @@
       biggest_issue: biggestIssue,
       useful_resources: usefulResources,
       consent: {
-        diagnostic_contact: state.context.diagnostic_contact !== false,
-        marketing: !!state.context.marketing
+        diagnostic_contact: state.context.diagnostic_contact === true,
+        marketing: state.context.marketing === true
       },
       utm: window.XMO.utm,
       page_url: location.href,
