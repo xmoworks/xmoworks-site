@@ -213,3 +213,14 @@ fieldset.xmo-question legend{padding:0 8px;line-height:1.5}
   .xmo-consent-actions { min-width: 0; justify-content: stretch; }
   .xmo-consent-actions .xmo-btn { flex: 1 1 100%; }
 }
+
+/* Company identity: quiet footer treatment and readable legal details. */
+.xmo-footer-legal{margin:8px 0;line-height:1.7}
+.xmo-footer-legal a{color:#B8C4D6;text-decoration:underline;text-underline-offset:3px}
+.xmo-operator-note p{color:#B8C4D6;line-height:1.75;font-size:14px}
+.xmo-operator-note h2{font-size:22px}
+.xmo-legal-details{margin:28px 0;line-height:1.7}
+.xmo-legal-details div{display:grid;grid-template-columns:minmax(140px,1fr) 2fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--xmo-border)}
+.xmo-legal-details dt{font-weight:600;color:#E2E8F0}
+.xmo-legal-details dd{margin:0;color:#B8C4D6;overflow-wrap:anywhere}
+@media(max-width:600px){.xmo-legal-details div{grid-template-columns:1fr;gap:4px}}

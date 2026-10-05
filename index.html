@@ -20,56 +20,88 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/xmo-v2.css?v=2">
+  <link rel="stylesheet" href="/assets/css/xmo-v2.css?v=20261005-legal-61b80e83522a">
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://xmoworks.ae/#organization",
-        "name": "XMO Works",
-        "url": "https://xmoworks.ae/",
-        "email": "hello@xmoworks.ae",
-        "description": "XMO Works helps growing companies and management offices prioritize work, reduce reporting effort, strengthen governance and turn project information into decisions.",
-        "knowsAbout": [
-          "Project Management Office",
-          "Enterprise Project Management Office",
-          "Portfolio Management",
-          "Transformation Management Office",
-          "Value Management Office",
-          "Project Governance",
-          "Portfolio Governance",
-          "Benefits Realization",
-          "AI-enabled project reporting"
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://xmoworks.ae/#website",
-        "url": "https://xmoworks.ae/",
-        "name": "XMO Works",
-        "publisher": {"@id": "https://xmoworks.ae/#organization"}
-      },
-      {
-        "@type": "Service",
-        "@id": "https://xmoworks.ae/#project-pmo-operating-systems",
-        "name": "Project and PMO Operating Systems",
-        "provider": {"@id": "https://xmoworks.ae/#organization"},
-        "url": "https://xmoworks.ae/",
-        "description": "Practical operating systems for organizations with no formal PMO, lean one- or two-person PMOs, and established PMOs, EPMOs, TMOs and portfolio offices.",
-        "serviceType": [
-          "PMO operating-system design",
-          "Portfolio governance",
-          "Management-office diagnostics",
-          "Decision-cycle improvement",
-          "Project and portfolio reporting improvement"
-        ]
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://xmoworks.ae/#organization",
+      "name": "XMO Works",
+      "url": "https://xmoworks.ae/",
+      "email": "hello@xmoworks.ae",
+      "description": "XMO Works helps growing companies and management offices prioritize work, reduce reporting effort, strengthen governance and turn project information into decisions.",
+      "knowsAbout": [
+        "Project Management Office",
+        "Enterprise Project Management Office",
+        "Portfolio Management",
+        "Transformation Management Office",
+        "Value Management Office",
+        "Project Governance",
+        "Portfolio Governance",
+        "Benefits Realization",
+        "AI-enabled project reporting"
+      ],
+      "parentOrganization": {
+        "@id": "https://speritasdigital.com/#organization"
       }
-    ]
-  }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://xmoworks.ae/#website",
+      "url": "https://xmoworks.ae/",
+      "name": "XMO Works",
+      "publisher": {
+        "@id": "https://xmoworks.ae/#organization"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://xmoworks.ae/#project-pmo-operating-systems",
+      "name": "Project and PMO Operating Systems",
+      "provider": {
+        "@id": "https://xmoworks.ae/#organization"
+      },
+      "url": "https://xmoworks.ae/",
+      "description": "Practical operating systems for organizations with no formal PMO, lean one- or two-person PMOs, and established PMOs, EPMOs, TMOs and portfolio offices.",
+      "serviceType": [
+        "PMO operating-system design",
+        "Portfolio governance",
+        "Management-office diagnostics",
+        "Decision-cycle improvement",
+        "Project and portfolio reporting improvement"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://speritasdigital.com/#organization",
+      "name": "Speritas Digital LLC",
+      "legalName": "Speritas Digital LLC",
+      "url": "https://speritasdigital.com/",
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Business licence",
+          "value": "2648611.01"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Formation number",
+          "value": "2648611"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shams Business Center, Sharjah Media City Free Zone, Al Messaned",
+        "addressLocality": "Sharjah",
+        "addressCountry": "AE"
+      }
+    }
+  ]
+}
   </script>
-  <script src="/assets/js/xmo-site.js?v=3" defer></script>
+  <script src="/assets/js/xmo-site.js?v=20261005-legal-7d523dd95fae" defer></script>
 </head>
 <body data-page="/" >
   <div class="xmo-shell">
@@ -165,8 +197,11 @@
         <a href="/about/">About</a>
         <a href="/pricing/">Pricing</a>
         <a href="/privacy/">Privacy</a>
+        <a href="/legal/">Legal</a>
         <a href="mailto:hello@xmoworks.ae">hello@xmoworks.ae</a>
       </div>
+      <div class="xmo-footer-legal">XMO Works is operated by <a href="https://speritasdigital.com/" target="_blank" rel="noopener noreferrer">Speritas Digital LLC</a>.</div>
+      <div class="xmo-footer-legal">SHAMS Free Zone, Sharjah, UAE · Business licence 2648611.01</div>
       <div>© 2026 XMO Works.</div>
     </footer>
   </div>
