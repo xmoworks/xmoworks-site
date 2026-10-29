@@ -208,7 +208,7 @@
     "page_view", "cta_click", "link_click", "page_engaged", "scroll_depth",
     "finder_start", "finder_step", "finder_complete", "finder_completed",
     "finder_result", "finder_abandon", "early_access_start", "contact_start",
-    "form_start", "form_submit_attempt", "form_submit_success", "form_submit_error"
+    "agentic_survey_start", "agentic_survey_complete", "form_start", "form_submit_attempt", "form_submit_success", "form_submit_error"
   ]);
 
   XMO.api = async function(functionName, options = {}) {
@@ -216,6 +216,7 @@
     const query = options.query ? "?" + new URLSearchParams(options.query).toString() : "";
     const response = await fetch(XMO.functionsBase + "/" + functionName + query, {
       method,
+      signal: options.signal,
       headers: apiHeaders,
       body: options.body ? JSON.stringify(options.body) : undefined
     });
@@ -456,7 +457,7 @@
 
   async function hydratePage() {
     const pageSlug = document.body.dataset.page || "/";
-    if (pageSlug === "/legal/") {
+    if (document.body.dataset.staticPage === "true" || pageSlug === "/legal/") {
       XMO.track("page_view");
       return; // Static legal identity does not depend on CMS hydration.
     }
