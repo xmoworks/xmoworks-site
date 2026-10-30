@@ -22,3 +22,6 @@
 .ap-home .ap-hero-art img{aspect-ratio:auto;object-fit:contain}.ap-hero h1{margin-top:0}.ap-survey button:disabled{opacity:.65;cursor:wait}.ap-survey :focus-visible{outline-color:#246b89}.ap-survey legend{max-width:100%}
 /* Keep all privacy choices readable against the existing light consent panel. */
 .xmo-consent-panel h2{color:#0f172a}.xmo-consent-panel .xmo-btn-secondary{color:#0f172a;border-color:#64748b;background:#f1f5f9}.xmo-consent-panel .xmo-consent-option strong{color:#0f172a}
+
+/* Research consent guidance must remain readable on the light form panel. */
+.ap-survey .ap-note{color:#0f172a!important}
