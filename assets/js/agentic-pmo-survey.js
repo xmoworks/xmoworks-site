@@ -20,12 +20,41 @@
   form.addEventListener('focusin', () => {
     if (!started) { started = true; if (!isTest) window.XMO.track('agentic_survey_start'); }
   });
+  const selected = name => Array.from(form.querySelectorAll('input[name="'+name+'"]:checked')).map(input => input.value);
+  const syncOther = name => {
+    const show = ['workaround','host'].includes(name) ? selected(name).includes('other') : field(name).value === 'other';
+    const input = field(name+'_other');
+    document.getElementById(name+'_other-group').hidden = !show;
+    input.disabled = !show;
+    if (!show) input.value = '';
+  };
+  for (const name of ['role','pain','gain']) field(name).addEventListener('change', () => syncOther(name));
+  for (const name of ['workaround','host']) {
+    for (const input of form.querySelectorAll('input[name="'+name+'"]')) input.addEventListener('change', () => {
+      if (input.checked) for (const other of form.querySelectorAll('input[name="'+name+'"]')) {
+        if (other !== input && (input.value === 'none' || other.value === 'none')) other.checked = false;
+      }
+      syncOther(name);
+    });
+  }
   field('pain').addEventListener('change', () => {
-    const skip = field('pain').value === 'none';
+    const pain = field('pain').value;
+    const skip = ['none','not_applicable'].includes(pain);
+    const wasSkipped = field('frequency').disabled;
     document.getElementById('frequency-group').hidden = skip;
     field('frequency').required = !skip;
     field('frequency').disabled = skip;
-    if (skip) field('frequency').value = 'none';
+    if (skip) field('frequency').value = pain;
+    else if (wasSkipped) field('frequency').value = '';
+    document.getElementById('impact-group').hidden = skip;
+    for (const name of ['impact_type','impact_range','impact_note']) {
+      field(name).disabled = skip || (name === 'impact_range' && !ranges[field('impact_type').value]);
+      if (skip) field(name).value = '';
+    }
+    if (skip) field('impact_range').replaceChildren(new Option('No range needed',''));
+    document.getElementById('example-question').textContent = skip
+      ? 'If useful, what result would improve your work? Keep the example non-confidential.'
+      : 'What happened the last time? Keep the example non-confidential.';
   });
   field('opt_in').addEventListener('change', () => {
     const enabled = field('opt_in').checked;
@@ -58,10 +87,15 @@
     const data = new FormData(form);
     const val = name => String(data.get(name) || '').trim();
     const answers = Object.fromEntries(['role','context','pain','gain','frequency','impact_type','impact_range','impact_note','example'].map(name => [name,val(name)]));
-    if (answers.pain === 'none') answers.frequency = 'none';
+    if (['none','not_applicable'].includes(answers.pain)) {
+      answers.frequency = answers.pain;
+      answers.impact_type = ''; answers.impact_range = ''; answers.impact_note = '';
+    }
+    for (const name of ['role_other','pain_other','gain_other','workaround_other','host_other']) answers[name] = val(name);
+    if (val('host_permission')) answers.host_permission = val('host_permission');
     answers.workaround = data.getAll('workaround');
     answers.host = data.getAll('host');
-    const payload = { schema_version:'agentic-pmo-v1', answers, source, opt_in:field('opt_in').checked,
+    const payload = { schema_version:'agentic-pmo-v1.1', answers, source, opt_in:field('opt_in').checked,
       email:field('opt_in').checked ? val('email') : null, is_test:isTest, website:val('website') };
     const signature = JSON.stringify(payload);
     if (!attempt || attempt.signature !== signature) attempt = { signature, id:newId() };
@@ -83,7 +117,7 @@
       confirmation.append(heading,text,note,id); form.replaceChildren(confirmation); confirmation.focus();
     } catch (_) {
       status.dataset.error = 'true';
-      status.textContent = 'We could not confirm receipt. Your answers are still here. Retry the unchanged response safely, or email hello@xmoworks.ae and quote '+attempt.id+'.';
+      status.textContent = 'We could not confirm receipt. Your answers are still here. Retry the unchanged response safely, or email hello@xmoworks.ae and quote your response ID. Response ID: '+attempt.id+'.';
       button.disabled = false;
     }
   });

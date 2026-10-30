@@ -23,27 +23,48 @@ Deno.serve(async req => {
     if (new TextEncoder().encode(raw).length > 10000) return reply({error:'request_too_large'},413);
     const b = JSON.parse(raw);
     if (b.website) return reply({error:'submission_rejected'},400);
-    if (b.schema_version !== 'agentic-pmo-v1' || !uuid.test(b.submission_id)) return reply({error:'invalid_submission'},400);
+    if (!['agentic-pmo-v1','agentic-pmo-v1.1'].includes(b.schema_version) || !uuid.test(b.submission_id)) return reply({error:'invalid_submission'},400);
     if (typeof b.opt_in !== 'boolean' || typeof b.is_test !== 'boolean') return reply({error:'invalid_flags'},400);
+    const v11 = b.schema_version === 'agentic-pmo-v1.1';
     const a = b.answers;
     if (!a || typeof a !== 'object' || Array.isArray(a)) return reply({error:'answers_required'},400);
     const answers: Record<string,unknown> = {};
     for (const [key,values] of Object.entries(choices)) {
-      if (!values.includes(a[key])) return reply({error:'invalid_'+key},400);
-      answers[key] = a[key];
+      const allowed = [...values];
+      if (v11 && ['role','pain','gain','frequency'].includes(key)) allowed.push('not_applicable');
+      if (v11 && key === 'gain') allowed.push('none');
+      const value = key === 'impact_type' ? (a[key] ?? '') : a[key];
+      if (!allowed.includes(value)) return reply({error:'invalid_'+key},400);
+      answers[key] = value;
     }
     if (a.pain === 'none' && a.frequency !== 'none') return reply({error:'invalid_frequency'},400);
+    if (v11 && a.pain === 'not_applicable' && a.frequency !== 'not_applicable') return reply({error:'invalid_frequency'},400);
+    if (v11 && ['none','not_applicable'].includes(a.pain) && (!['','unknown'].includes(a.impact_type ?? '') || (a.impact_range ?? '') !== '' || (a.impact_note ?? '') !== '')) return reply({error:'impact_must_be_skipped'},400);
     for (const [key,max] of Object.entries({context:120,impact_note:200,example:500})) {
-      if (typeof a[key] !== 'string' || a[key].length > max) return reply({error:'invalid_'+key},400);
-      answers[key] = a[key].trim();
+      if (typeof (a[key] ?? '') !== 'string' || (a[key] ?? '').length > max) return reply({error:'invalid_'+key},400);
+      answers[key] = (a[key] ?? '').trim();
     }
-    const allowedRanges = ranges[a.impact_type] || [''];
-    if (!allowedRanges.includes(a.impact_range)) return reply({error:'invalid_range'},400);
-    answers.impact_range = a.impact_range;
+    const allowedRanges = ranges[String(answers.impact_type)] || [''];
+    if (!allowedRanges.includes(a.impact_range ?? '')) return reply({error:'invalid_range'},400);
+    answers.impact_range = a.impact_range ?? '';
     for (const [key,allowed] of Object.entries({workaround:['manual','pm_tool','generic_ai','specialist','other','none'],host:['m365','copilot_studio','chatgpt','claude','other','none']})) {
       if (!Array.isArray(a[key]) || a[key].length > allowed.length || a[key].some((v: unknown) => typeof v !== 'string' || !allowed.includes(v))) return reply({error:'invalid_'+key},400);
+      if (v11 && (new Set(a[key]).size !== a[key].length || (a[key].includes('none') && a[key].length !== 1))) return reply({error:'exclusive_'+key},400);
       answers[key] = [...new Set(a[key])].sort();
     }
+    if (v11) {
+      for (const name of ['role_other','pain_other','gain_other','workaround_other','host_other']) {
+        if (a[name] !== undefined && (typeof a[name] !== 'string' || a[name].length > 200)) return reply({error:'invalid_'+name},400);
+        if (a[name] !== undefined) answers[name] = a[name].trim();
+      }
+      if (a.host_permission !== undefined) {
+        if (!['not_asked','approved','personal_only','approval_needed','not_permitted','unknown'].includes(a.host_permission)) return reply({error:'invalid_host_permission'},400);
+        answers.host_permission = a.host_permission;
+      }
+      const allowedKeys = new Set([...Object.keys(choices),'context','impact_note','example','impact_range','workaround','host','role_other','pain_other','gain_other','workaround_other','host_other','host_permission']);
+      if (Object.keys(a).some(k => !allowedKeys.has(k))) return reply({error:'unexpected_answer_field'},400);
+    }
+    if (!b.opt_in && b.email !== null) return reply({error:'email_requires_opt_in'},400);
     const email = b.opt_in && typeof b.email === 'string' ? b.email.trim().toLowerCase() : null;
     if (b.opt_in && (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) return reply({error:'valid_email_required'},400);
     const source: Record<string,string> = {};
