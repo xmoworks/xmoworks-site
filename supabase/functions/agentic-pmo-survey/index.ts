@@ -27,26 +27,31 @@ Deno.serve(async req => {
     if (typeof b.opt_in !== 'boolean' || typeof b.is_test !== 'boolean') return reply({error:'invalid_flags'},400);
     const v11 = b.schema_version === 'agentic-pmo-v1.1';
     const a = b.answers;
+    if (v11) {
+      const requestKeys = ['schema_version','submission_id','answers','source','opt_in','email','is_test','website'];
+      if (requestKeys.some(k => !(k in b)) || Object.keys(b).some(k => !requestKeys.includes(k)) || b.website !== '') return reply({error:'invalid_request_fields'},400);
+      if (!b.source || typeof b.source !== 'object' || Array.isArray(b.source) || Object.keys(b.source).some(k => !['utm_source','utm_medium','utm_campaign','utm_content'].includes(k))) return reply({error:'invalid_source'},400);
+    }
     if (!a || typeof a !== 'object' || Array.isArray(a)) return reply({error:'answers_required'},400);
     const answers: Record<string,unknown> = {};
     for (const [key,values] of Object.entries(choices)) {
       const allowed = [...values];
       if (v11 && ['role','pain','gain','frequency'].includes(key)) allowed.push('not_applicable');
       if (v11 && key === 'gain') allowed.push('none');
-      const value = key === 'impact_type' ? (a[key] ?? '') : a[key];
+      const value = key === 'impact_type' ? (a[key] === undefined ? '' : a[key]) : a[key];
       if (!allowed.includes(value)) return reply({error:'invalid_'+key},400);
       answers[key] = value;
     }
     if (a.pain === 'none' && a.frequency !== 'none') return reply({error:'invalid_frequency'},400);
     if (v11 && a.pain === 'not_applicable' && a.frequency !== 'not_applicable') return reply({error:'invalid_frequency'},400);
-    if (v11 && ['none','not_applicable'].includes(a.pain) && (!['','unknown'].includes(a.impact_type ?? '') || (a.impact_range ?? '') !== '' || (a.impact_note ?? '') !== '')) return reply({error:'impact_must_be_skipped'},400);
+    if (v11 && ['none','not_applicable'].includes(a.pain) && (!['','unknown'].includes(a.impact_type === undefined ? '' : a.impact_type) || (a.impact_range === undefined ? '' : a.impact_range) !== '' || (a.impact_note === undefined ? '' : a.impact_note) !== '')) return reply({error:'impact_must_be_skipped'},400);
     for (const [key,max] of Object.entries({context:120,impact_note:200,example:500})) {
-      if (typeof (a[key] ?? '') !== 'string' || (a[key] ?? '').length > max) return reply({error:'invalid_'+key},400);
-      answers[key] = (a[key] ?? '').trim();
+      if (typeof (a[key] === undefined ? '' : a[key]) !== 'string' || (a[key] === undefined ? '' : a[key]).length > max) return reply({error:'invalid_'+key},400);
+      answers[key] = (a[key] === undefined ? '' : a[key]).trim();
     }
     const allowedRanges = ranges[String(answers.impact_type)] || [''];
-    if (!allowedRanges.includes(a.impact_range ?? '')) return reply({error:'invalid_range'},400);
-    answers.impact_range = a.impact_range ?? '';
+    if (!allowedRanges.includes(a.impact_range === undefined ? '' : a.impact_range)) return reply({error:'invalid_range'},400);
+    answers.impact_range = a.impact_range === undefined ? '' : a.impact_range;
     for (const [key,allowed] of Object.entries({workaround:['manual','pm_tool','generic_ai','specialist','other','none'],host:['m365','copilot_studio','chatgpt','claude','other','none']})) {
       if (!Array.isArray(a[key]) || a[key].length > allowed.length || a[key].some((v: unknown) => typeof v !== 'string' || !allowed.includes(v))) return reply({error:'invalid_'+key},400);
       if (v11 && (new Set(a[key]).size !== a[key].length || (a[key].includes('none') && a[key].length !== 1))) return reply({error:'exclusive_'+key},400);
