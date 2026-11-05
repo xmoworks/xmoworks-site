@@ -2,6 +2,11 @@
 (() => {
   "use strict";
   const read = (form, name) => String(new FormData(form).get(name) || "").trim();
+  const validReceiptId = value => typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
+  const trackConsentEvent = event => {
+    if (!window.XMO.hasConsent("analytics") || typeof window.gtag !== "function") return;
+    try { window.gtag("event", event); } catch (_) {}
+  };
 
   document.addEventListener("xmo:earlyaccess-ready", () => {
     const form = document.getElementById("early-access-form");
@@ -27,13 +32,16 @@
           page_path: location.pathname,
           referrer: document.referrer
         };
-        await window.XMO.api("early-access-submit",{method:"POST",body:payload});
+        const receipt = await window.XMO.api("early-access-submit",{method:"POST",body:payload});
+        if (receipt?.ok !== true || !validReceiptId(receipt.contact_id)) {
+          throw new Error("signup_receipt_unconfirmed");
+        }
         window.XMO.track("form_submit_success", { form_name: "early_access" });
-        if (typeof window.gtag === "function") window.gtag("event","early_access_signup");
+        trackConsentEvent("early_access_signup");
         form.innerHTML = `<div class="xmo-success"><h2>You're on the list.</h2><p>Thanks. XMO Works will keep the signal high and the noise low.</p></div>`;
       } catch(error) {
         window.XMO.track("form_submit_error", { form_name: "early_access" });
-        status.textContent = "We could not complete the signup. Please try again.";
+        status.textContent = "We could not confirm your signup. Please email hello@xmoworks.ae and ask us to check before trying again.";
         button.disabled = false;
         console.error(error);
       }
@@ -45,7 +53,6 @@
     if (!form) return;
     window.XMO.track("contact_start");
     const hasMeasurementConsent = () => window.XMO.hasConsent("analytics") || window.XMO.hasConsent("advertising");
-    const validReceiptId = value => typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 
     const urlLane = new URLSearchParams(location.search).get("lane");
     if (urlLane && ["starter","mini","decision_cycle"].includes(urlLane)) form.elements.lane_interest.value = urlLane;
@@ -76,7 +83,7 @@
           throw new Error("inquiry_receipt_unconfirmed");
         }
         window.XMO.track("form_submit_success", { form_name: "contact" });
-        if (window.XMO.hasConsent("analytics") && typeof window.gtag === "function") window.gtag("event","contact_submitted");
+        trackConsentEvent("contact_submitted");
         form.innerHTML = `<div class="xmo-success"><h2>Received.</h2><p>Thank you. XMO Works will review the problem and follow up where appropriate.</p></div>`;
       } catch(error) {
         window.XMO.track("form_submit_error", { form_name: "contact" });
@@ -85,5 +92,19 @@
         console.error(error);
       }
     });
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    const shell = document.querySelector("[data-xmo-form-shell]");
+    if (!shell || !window.XMO?.api || !window.XMO?.track) return;
+
+    const form = shell.querySelector("form");
+    if (form?.id === "contact-form") {
+      document.dispatchEvent(new CustomEvent("xmo:contact-ready"));
+    } else if (form?.id === "early-access-form") {
+      document.dispatchEvent(new CustomEvent("xmo:earlyaccess-ready"));
+    } else {
+      return;
+    }
+    shell.hidden = false;
   });
 })();

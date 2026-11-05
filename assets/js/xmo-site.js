@@ -93,7 +93,7 @@
       advertising: !!advertising,
       updated_at: new Date().toISOString()
     };
-    localStorage.setItem(consentKey, JSON.stringify(XMO.consent));
+    try { localStorage.setItem(consentKey, JSON.stringify(XMO.consent)); } catch (_) {}
     applyConsent();
     renderConsentControls(false);
   };
@@ -130,11 +130,25 @@
       root.id = "xmo-consent-root";
       document.body.appendChild(root);
     }
-    const needsChoice = !XMO.consent;
-    root.innerHTML = (needsChoice || forceOpen)
+    const showPanel = !XMO.consent || forceOpen;
+    const returnFocus = root.contains(document.activeElement);
+    root.innerHTML = showPanel
       ? '<div class="xmo-consent-overlay">' + consentPanel(!!preferences) + '</div>'
       : '<button class="xmo-consent-settings" type="button" data-xmo-consent-manage aria-label="Open privacy choices">Privacy choices</button>';
+    if (showPanel) root.querySelector("[data-xmo-consent-reject]").focus({ preventScroll: true });
+    else if (returnFocus) root.querySelector(".xmo-consent-settings").focus({ preventScroll: true });
   }
+
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Tab") return;
+    const panel = document.querySelector(".xmo-consent-panel");
+    if (!panel) return;
+    const controls = panel.querySelectorAll("a[href], button:not([disabled]), input:not([disabled])");
+    const boundary = event.shiftKey ? controls[0] : controls[controls.length - 1];
+    if (document.activeElement !== boundary && panel.contains(document.activeElement)) return;
+    event.preventDefault();
+    (event.shiftKey ? controls[controls.length - 1] : controls[0]).focus();
+  });
 
   XMO.openConsentPreferences = function() {
     renderConsentControls(true, true);
@@ -174,10 +188,11 @@
   };
 
   function getSessionId() {
-    let id = localStorage.getItem("xmo_session_id");
+    let id;
+    try { id = localStorage.getItem("xmo_session_id"); } catch (_) {}
     if (!id) {
       id = (crypto.randomUUID ? crypto.randomUUID() : Date.now() + "-" + Math.random().toString(16).slice(2));
-      localStorage.setItem("xmo_session_id", id);
+      try { localStorage.setItem("xmo_session_id", id); } catch (_) {}
     }
     return id;
   }
@@ -193,8 +208,8 @@
     };
     const hasCurrent = Object.values(current).some(Boolean);
     const canPersist = XMO.hasConsent("analytics") || XMO.hasConsent("advertising");
-    if (hasCurrent && canPersist) localStorage.setItem("xmo_first_utm", JSON.stringify(current));
     try {
+      if (hasCurrent && canPersist) localStorage.setItem("xmo_first_utm", JSON.stringify(current));
       return hasCurrent ? current : (canPersist ? JSON.parse(localStorage.getItem("xmo_first_utm") || "{}") : {});
     } catch (_) {
       return hasCurrent ? current : {};
@@ -229,7 +244,7 @@
   XMO.track = function(eventName, extra = {}) {
     if (!trackedEvents.has(eventName) || !XMO.hasConsent("analytics")) return;
     if (typeof window.gtag === "function") {
-      window.gtag("event", eventName, extra);
+      try { window.gtag("event", eventName, extra); } catch (_) {}
     }
     const body = {
       event_name: eventName,
@@ -364,7 +379,9 @@
     const data = await XMO.api("site-content", { query: { articles: "1" } });
     const container = document.querySelector("[data-articles]");
     if (!container) return;
-    container.innerHTML = (data.articles || []).map(a => {
+    const existing = new Set(Array.from(container.querySelectorAll("[data-article-slug]"), card => card.dataset.articleSlug));
+    const articles = Array.isArray(data.articles) ? data.articles : [];
+    const cards = articles.filter(article => /^[a-z0-9-]+$/.test(article?.slug || "") && !existing.has(article.slug)).map(a => {
       const legacy = a.slug === "not-every-organization-needs-a-pmo";
       const url = legacy ? `/insights/${a.slug}.html` : `/insights/article.html?slug=${encodeURIComponent(a.slug)}`;
       return `<a class="xmo-article-card" href="${url}">
@@ -373,7 +390,43 @@
         <p>${escapeHtml(a.summary || "")}</p>
         <span>Read insight →</span>
       </a>`;
-    }).join("") || `<div class="xmo-empty">New insights are being prepared.</div>`;
+    }).join("");
+    if (cards) container.insertAdjacentHTML("beforeend", cards);
+    if (!container.children.length) {
+      const empty = document.createElement("p");
+      empty.className = "xmo-empty";
+      empty.textContent = "New insights are being prepared.";
+      container.append(empty);
+    }
+  }
+
+  const articleTags = new Set(["A", "BLOCKQUOTE", "BR", "CODE", "DIV", "EM", "H2", "H3", "H4", "LI", "OL", "P", "PRE", "STRONG", "UL"]);
+
+  function safeArticleBody(markup) {
+    const template = document.createElement("template");
+    template.innerHTML = typeof markup === "string" ? markup : "";
+    for (const node of template.content.querySelectorAll("*")) {
+      if (!articleTags.has(node.tagName)) {
+        node.remove();
+        continue;
+      }
+      const href = node.tagName === "A" ? node.getAttribute("href") : null;
+      const opensNewTab = node.getAttribute("target") === "_blank";
+      for (const name of node.getAttributeNames()) {
+        if (name !== "class") node.removeAttribute(name);
+      }
+      if (!href) continue;
+      try {
+        const url = new URL(href, location.href);
+        if (!["https:", "http:", "mailto:"].includes(url.protocol)) continue;
+        node.setAttribute("href", href);
+        if (opensNewTab) {
+          node.setAttribute("target", "_blank");
+          node.setAttribute("rel", "noopener noreferrer");
+        }
+      } catch (_) {}
+    }
+    return template.innerHTML;
   }
 
   async function loadArticle() {
@@ -389,7 +442,7 @@
         <div class="xmo-eyebrow">${escapeHtml(a.category || "Insights")}</div>
         <h1>${escapeHtml(a.title)}</h1>
         <p class="xmo-article-meta">XMO Works Insights</p>
-        <div class="xmo-article-body">${a.body_html || ""}</div>
+        <div class="xmo-article-body">${safeArticleBody(a.body_html)}</div>
         ${a.slug === "checking-ai-portfolio-brief" ? "" : `<div class="xmo-cta-panel xmo-article-cta">
           <h2>Find your starting point</h2>
           <p>XMO Finder identifies the strongest management-office friction and routes you to the most appropriate XMO pathway.</p>
@@ -459,7 +512,10 @@
     const pageSlug = document.body.dataset.page || "/";
     if (document.body.dataset.staticPage === "true" || pageSlug === "/legal/") {
       XMO.track("page_view");
-      return; // Static legal identity does not depend on CMS hydration.
+      if (pageSlug === "/insights/") {
+        loadArticlesIndex().catch(error => console.warn("Additional insights unavailable", error));
+      }
+      return;
     }
     if (document.body.dataset.articleSlug !== undefined || document.body.dataset.articleQuery === "true") {
       await loadArticle();
@@ -556,7 +612,7 @@
       [25, 50, 75, 90].forEach(threshold => {
         if (depth >= threshold && !sentDepths.has(threshold)) {
           sentDepths.add(threshold);
-          sessionStorage.setItem(pageKey + "_" + threshold, "1");
+          try { sessionStorage.setItem(pageKey + "_" + threshold, "1"); } catch (_) {}
           XMO.track("scroll_depth", { scroll_depth: threshold });
         }
       });

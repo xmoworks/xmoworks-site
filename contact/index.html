@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact XMO Works</title>
-  <meta name="description" content="Talk to XMO Works about your project or PMO problem.">
+  <title>Contact XMO Works | Discuss your portfolio review</title>
+  <meta name="description" content="Tell XMO Works about a non-confidential portfolio review, coordination or reporting challenge to assess whether a pilot discussion fits.">
   <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/brand/xmo-icon.png">
   <meta name="theme-color" content="#0F172A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/xmo-v2.css?v=20261005-legal-61b80e83522a">
-  <script src="/assets/js/xmo-site.js?v=20261005-content" defer></script>
-  <script src="/assets/js/forms.js?v=20261005-554ac86f6713" defer></script>
+  <link rel="stylesheet" href="/assets/css/xmo-v2.css?20261104-m2b">
+  <script src="/assets/js/xmo-site.js?20261104-m2b" defer></script>
+  <script src="/assets/js/forms.js?20261104-m2b" defer></script>
+  <link rel="canonical" href="https://xmoworks.ae/contact/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XMO Works">
+  <meta property="og:title" content="Contact XMO Works | Discuss your portfolio review">
+  <meta property="og:description" content="Tell XMO Works about a non-confidential portfolio review, coordination or reporting challenge to assess whether a pilot discussion fits.">
+  <meta property="og:url" content="https://xmoworks.ae/contact/">
 </head>
-<body data-page="/contact/" >
+<body data-page="/contact/" data-static-page="true">
+  <a class="xmo-skip" href="#app">Skip to content</a>
   <div class="xmo-shell">
     <header class="xmo-nav">
       <a href="/" aria-label="XMO Works home"><img class="xmo-logo" src="/assets/brand/xmo-logo-dark.png" alt="XMO Works"></a>
@@ -29,7 +36,41 @@
         <a href="/contact/">Contact</a>
       </nav>
     </header>
-    <main id="app"><section class="xmo-panel xmo-loading"><p>Loading XMO Works…</p></section></main>
+    <main id="app" tabindex="-1">
+      <section class="xmo-hero xmo-panel">
+        <p class="xmo-eyebrow">Contact XMO Works</p>
+        <h1>Discuss your portfolio review or project coordination</h1>
+        <p class="xmo-lead">Tell us what you review, how often, and where reporting or decisions get stuck. Leave out confidential project details, client names and sensitive figures.</p>
+        <p>This is a request for a discussion. Marketing updates are a separate optional choice. <a href="/privacy/">Privacy and data use</a> · <a href="/legal/">Company and legal information</a>.</p>
+
+      </section>
+      <section class="xmo-section xmo-panel">
+        <div class="xmo-section-heading"><h2>Send an enquiry</h2></div>
+        <noscript><p>The enquiry form needs JavaScript.</p></noscript><p>You can email <a href="mailto:hello@xmoworks.ae">hello@xmoworks.ae</a>.</p><div hidden data-xmo-form-shell><form id="contact-form" class="xmo-form">
+          <input type="text" name="website" class="xmo-honeypot" tabindex="-1" autocomplete="off">
+          <label>Name <input name="full_name" autocomplete="name" required></label>
+          <label>Email <input name="email" type="email" autocomplete="email" required></label>
+          <label>Organization <input name="organization_name" autocomplete="organization"></label>
+          <label>Role <input name="job_title" autocomplete="organization-title"></label>
+          <label>Which path is closest?
+            <select name="lane_interest">
+              <option value="">Not sure</option>
+              <option value="starter">No formal PMO</option>
+              <option value="mini">One/two-person PMO</option>
+              <option value="decision_cycle">Established PMO / portfolio office</option>
+            </select>
+          </label>
+          <label>Your portfolio review challenge <textarea name="message" rows="6" placeholder="What do you review, how often, and where does the process get stuck? A short description is enough." required></textarea></label>
+          <label class="xmo-check"><input name="consent_marketing" type="checkbox"> Send me relevant XMO Works resources and updates.</label>
+          <button class="xmo-btn xmo-btn-primary" type="submit">Send enquiry</button>
+          <div class="xmo-form-status" aria-live="polite"></div>
+        </form></div>
+      </section>
+      <section class="xmo-section xmo-panel">
+        <div class="xmo-section-heading"><h2>What happens next</h2></div>
+        <p>We assess the description and follow up where appropriate. If there is a fit, we discuss who would take part, what inputs can be shared, and what scope and terms would apply.</p>
+      </section>
+    </main>
     <footer class="xmo-footer">
       <img class="xmo-footer-logo" src="/assets/brand/xmo-logo-dark.png" alt="XMO Works">
       <div>Stop reporting projects. Start proving value.</div>

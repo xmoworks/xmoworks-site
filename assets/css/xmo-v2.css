@@ -224,3 +224,14 @@ fieldset.xmo-question legend{padding:0 8px;line-height:1.5}
 .xmo-legal-details dt{font-weight:600;color:#E2E8F0}
 .xmo-legal-details dd{margin:0;color:#B8C4D6;overflow-wrap:anywhere}
 @media(max-width:600px){.xmo-legal-details div{grid-template-columns:1fr;gap:4px}}
+
+/* Keyboard navigation for the static M2-B pages. */
+.xmo-skip{position:fixed;left:16px;top:-100px;z-index:200;padding:12px;background:var(--xmo-gold-soft);color:var(--xmo-navy)}
+.xmo-skip:focus{top:12px}
+body:has(.xmo-skip) :focus-visible{outline:3px solid #65E0DE;outline-offset:4px}
+body:has(.xmo-skip) #app,#finder-mount h2[tabindex]{scroll-margin-top:160px}
+
+/* Keep both optional-tracking choices readable on the light consent panel. */
+.xmo-consent-panel h2,.xmo-consent-option strong{color:var(--xmo-navy)}
+.xmo-consent-panel .xmo-btn-secondary{color:var(--xmo-navy);background:#F1F5F9;border-color:#64748B}
+.xmo-consent-panel :focus-visible{outline:3px solid #246B89;outline-offset:3px}

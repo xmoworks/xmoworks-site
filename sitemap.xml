@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://xmoworks.ae/</loc></url>
-  <url><loc>https://xmoworks.ae/starter/</loc></url>
-  <url><loc>https://xmoworks.ae/mini/</loc></url>
+  <url><loc>https://xmoworks.ae/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/starter/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/mini/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://xmoworks.ae/decision-cycle/</loc></url>
-  <url><loc>https://xmoworks.ae/finder/</loc></url>
-  <url><loc>https://xmoworks.ae/pricing/</loc></url>
-  <url><loc>https://xmoworks.ae/about/</loc></url>
-  <url><loc>https://xmoworks.ae/contact/</loc></url>
-  <url><loc>https://xmoworks.ae/early-access/</loc></url>
-  <url><loc>https://xmoworks.ae/privacy/</loc></url>
-  <url><loc>https://xmoworks.ae/insights/</loc></url>
-  <url><loc>https://xmoworks.ae/insights/not-every-organization-needs-a-pmo.html</loc></url>
+  <url><loc>https://xmoworks.ae/finder/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/pricing/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/about/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/contact/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/early-access/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/privacy/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/insights/</loc><lastmod>2026-11-05</lastmod></url>
+  <url><loc>https://xmoworks.ae/insights/not-every-organization-needs-a-pmo.html</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://xmoworks.ae/legal/</loc></url>
-<url><loc>https://xmoworks.ae/agentic-pmo/</loc><lastmod>2026-10-29</lastmod></url>
+<url><loc>https://xmoworks.ae/agentic-pmo/</loc><lastmod>2026-11-05</lastmod></url>
 </urlset>

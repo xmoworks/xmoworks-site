@@ -86,7 +86,7 @@
     const q = state.config.questions.find(x => x.question_key === "route_selection");
     return `<div class="xmo-form-step">
       <div class="xmo-eyebrow">Step 1 of 6</div>
-      <h1>Where are you today?</h1>
+      <h2>Where are you today?</h2>
       <p class="xmo-lead">This routes the diagnostic to your operating reality before we score anything.</p>
       <div class="xmo-route-grid">
         ${(q.options || []).map(o => `<button type="button" class="xmo-route-card ${state.route===o.value?"active":""}" data-route="${esc(o.value)}"><strong>${esc(o.label)}</strong><span>${o.value==="starter"?"Growing company / no formal PMO":o.value==="mini"?"Lean PMO needing leverage":"Established management office"}</span></button>`).join("")}
@@ -164,8 +164,19 @@
     return reviewStep();
   }
 
+  function mount() {
+    return document.getElementById("finder-mount") || document.getElementById("app");
+  }
+
+  function focusStep() {
+    const heading = mount().querySelector("h2");
+    if (!heading) return;
+    heading.tabIndex = -1;
+    heading.focus();
+  }
+
   function render() {
-    const app = document.getElementById("app");
+    const app = mount();
     app.innerHTML = `<section class="xmo-form-shell xmo-panel">
       ${progress()}
       <form id="finder-form" class="xmo-form">${stepHtml()}
@@ -229,6 +240,7 @@
       state.route = btn.dataset.route;
       state.answers.route_selection = state.route;
       render();
+      mount().querySelector("[data-next]")?.focus();
       window.XMO.track("finder_step", { lane: state.route, step: 1 });
     }));
 
@@ -240,14 +252,14 @@
       state.step++;
       window.XMO.track("finder_step", { lane: state.route, step: state.step + 1 });
       render();
-      window.scrollTo({top:0,behavior:"smooth"});
+      focusStep();
     });
 
     document.querySelector("[data-back]")?.addEventListener("click", () => {
       saveCurrentForm();
       state.step = Math.max(0,state.step-1);
       render();
-      window.scrollTo({top:0,behavior:"smooth"});
+      focusStep();
     });
 
     document.getElementById("finder-form")?.addEventListener("change", saveCurrentForm);
@@ -263,7 +275,7 @@
     }).join("");
     return `<section class="xmo-result xmo-panel">
       <div class="xmo-eyebrow">Your XMO Finder result</div>
-      <h1>${esc(result.recommendation_qualifier || result.recommended_model)}</h1>
+      <h2>${esc(result.recommendation_qualifier || result.recommended_model)}</h2>
       <p class="xmo-lead">${esc(result.diagnostic_summary || "")}</p>
       <div class="xmo-result-offer">Recommended pathway: <strong>${esc(result.recommended_offer || "")}</strong></div>
       <div class="xmo-scores">${bars}</div>
@@ -325,11 +337,15 @@
 
     try {
       const result = await window.XMO.api("finder-submit-v2", { method:"POST", body:payload });
-      window.XMO.track("finder_completed", { lane: state.route });
-      window.XMO.track("form_submit_success", { form_name: "finder" });
-      window.XMO.trackLinkedInFinderConversion?.(payload.submission_id);
-      document.getElementById("app").innerHTML = resultHtml(result);
-      window.scrollTo({top:0,behavior:"smooth"});
+      mount().innerHTML = resultHtml(result);
+      focusStep();
+      try {
+        window.XMO.track("finder_completed", { lane: state.route });
+        window.XMO.track("form_submit_success", { form_name: "finder" });
+        window.XMO.trackLinkedInFinderConversion?.(payload.submission_id);
+      } catch (_) {
+        // Optional measurement must not invalidate a confirmed diagnostic result.
+      }
     } catch (error) {
       window.XMO.track("form_submit_error", { form_name: "finder" });
       status.textContent = "We could not submit your diagnostic. Please try again or contact hello@xmoworks.ae.";
@@ -339,7 +355,7 @@
   }
 
   async function init() {
-    document.getElementById("app").innerHTML = `<section class="xmo-panel xmo-loading"><p>Loading XMO Finder…</p></section>`;
+    mount().innerHTML = `<section class="xmo-panel xmo-loading"><p>Loading XMO Finder…</p></section>`;
     state.config = await window.XMO.api("finder-config");
     window.XMO.track("finder_start");
     render();
@@ -348,7 +364,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     init().catch(error => {
       console.error(error);
-      document.getElementById("app").innerHTML = `<section class="xmo-panel xmo-error"><h1>XMO Finder is temporarily unavailable.</h1><p>Please contact <a href="mailto:hello@xmoworks.ae">hello@xmoworks.ae</a>.</p></section>`;
+      mount().innerHTML = `<section class="xmo-panel xmo-error"><h2>XMO Finder is temporarily unavailable.</h2><p>Please contact <a href="mailto:hello@xmoworks.ae">hello@xmoworks.ae</a>.</p></section>`;
     });
   });
 })();

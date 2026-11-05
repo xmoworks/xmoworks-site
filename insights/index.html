@@ -4,11 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>XMO Works Insights</title>
-  <meta
-    name="description"
-    content="Practical thinking on project delivery, PMO, portfolios, governance and transformation."
-  >
+  <title>XMO Works Insights | Project and portfolio governance</title>
+  <meta name="description" content="Original XMO Works articles on project coordination, PMO design, portfolio decisions and how to review AI-assisted reporting.">
 
   <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/brand/xmo-icon.png">
@@ -21,58 +18,20 @@
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="/assets/css/xmo-v2.css?v=20261005-legal-61b80e83522a">
+  <link rel="stylesheet" href="/assets/css/xmo-v2.css?20261104-m2b">
 
-  <script src="/assets/js/xmo-site.js?v=20261005-content" defer></script>
+  <script src="/assets/js/xmo-site.js?20261104-m2b" defer></script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const app = document.getElementById("app");
-
-      if (!app) return;
-
-      function moveArticlesBeforeFaq() {
-        const articlesGrid = app.querySelector("[data-articles]");
-
-        if (!articlesGrid) return false;
-
-        const articlesSection = articlesGrid.closest(".xmo-section");
-
-        const faqHeading = Array.from(
-          app.querySelectorAll(".xmo-section-heading h2")
-        ).find(
-          heading => heading.textContent.trim() === "Common questions"
-        );
-
-        const faqSection = faqHeading
-          ? faqHeading.closest(".xmo-section")
-          : null;
-
-        if (articlesSection && faqSection) {
-          app.insertBefore(articlesSection, faqSection);
-          return true;
-        }
-
-        return false;
-      }
-
-      if (moveArticlesBeforeFaq()) return;
-
-      const observer = new MutationObserver(() => {
-        if (moveArticlesBeforeFaq()) {
-          observer.disconnect();
-        }
-      });
-
-      observer.observe(app, {
-        childList: true,
-        subtree: true
-      });
-    });
-  </script>
+  <link rel="canonical" href="https://xmoworks.ae/insights/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XMO Works">
+  <meta property="og:title" content="XMO Works Insights | Project and portfolio governance">
+  <meta property="og:description" content="Original XMO Works articles on project coordination, PMO design, portfolio decisions and how to review AI-assisted reporting.">
+  <meta property="og:url" content="https://xmoworks.ae/insights/">
 </head>
 
-<body data-page="/insights/">
+<body data-page="/insights/" data-static-page="true">
+  <a class="xmo-skip" href="#app">Skip to content</a>
 
   <div class="xmo-shell">
 
@@ -98,9 +57,26 @@
 
     </header>
 
-    <main id="app">
-      <section class="xmo-panel xmo-loading">
-        <p>Loading XMO Works…</p>
+    <main id="app" tabindex="-1">
+      <section class="xmo-hero xmo-panel">
+        <p class="xmo-eyebrow">XMO Works Insights</p>
+        <h1>Project and portfolio governance insights</h1>
+        <p class="xmo-lead">Practical questions for teams deciding when to formalize project coordination, how to review a portfolio and what to check in an AI-assisted brief.</p>
+        <p>Use the articles to frame a discussion about your own operating context.</p>
+
+      </section>
+      <section class="xmo-section xmo-panel">
+        <div class="xmo-section-heading"><h2>Published articles</h2></div>
+        <div class="xmo-article-grid" data-articles>
+<a class="xmo-article-card" href="/insights/article.html?slug=checking-ai-portfolio-brief" data-article-slug="checking-ai-portfolio-brief"><p class="xmo-eyebrow"><time datetime="2026-10-05">2026-10-05</time></p><h3>How to check an AI-generated portfolio brief before the review</h3><p>A practical checklist for reviewing facts, calculations, recommendations, trade-offs, ownership and release in an AI-generated portfolio brief.</p></a>
+<a class="xmo-article-card" href="/insights/article.html?slug=signs-informal-project-coordination-is-breaking" data-article-slug="signs-informal-project-coordination-is-breaking"><p class="xmo-eyebrow"><time datetime="2026-08-25">2026-08-25</time></p><h3>5 Signs Informal Project Coordination Is Breaking</h3><p>Growing companies rarely outgrow informal coordination because they hit a specific project count. The real warning is repeated failure in ownership, priorities, dependencies, escalation and decisions. Here is how to diagnose the problem and introduce the minimum operating layer before considering a formal PMO.</p></a>
+<a class="xmo-article-card" href="/insights/article.html?slug=why-are-pmos-short-lived-start-with-work-not-label" data-article-slug="why-are-pmos-short-lived-start-with-work-not-label"><p class="xmo-eyebrow"><time datetime="2026-08-18">2026-08-18</time></p><h3>Do You Need a PMO? Start With the Work, Not the Label</h3><p>Fear of creating a bureaucratic PMO can leave growing organizations without the visibility, ownership and decision routes they need. Start with a lightweight governance capability, prove its value and decide what to call it later.</p></a>
+<a class="xmo-article-card" href="/insights/not-every-organization-needs-a-pmo.html" data-article-slug="not-every-organization-needs-a-pmo"><p class="xmo-eyebrow"><time datetime="2026-08-18">2026-08-18</time></p><h3>Not Every Organization Needs a PMO</h3><p>Before creating or redesigning a management office, clarify the organizational problem it is meant to solve.</p></a>
+</div>
+      </section>
+      <section class="xmo-section xmo-panel">
+        <div class="xmo-section-heading"><h2>Explore the methods</h2></div>
+        <p>See <a href="/starter/">coordination before a formal PMO</a>, <a href="/mini/">reporting for small PMOs</a> or the <a href="/decision-cycle/">design-partner portfolio review pilot</a>.</p>
       </section>
     </main>
 

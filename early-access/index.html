@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XMO Works Early Access</title>
-  <meta name="description" content="Join XMO Works early access.">
+  <title>XMO Works Early Access | Product updates</title>
+  <meta name="description" content="Opt in to XMO Works product updates, resources and information on selected pilot opportunities.">
   <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/brand/xmo-icon.png">
   <meta name="theme-color" content="#0F172A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/xmo-v2.css?v=20261005-legal-61b80e83522a">
-  <script src="/assets/js/xmo-site.js?v=20261005-legal-7d523dd95fae" defer></script>
-  <script src="/assets/js/forms.js?v=1" defer></script>
+  <link rel="stylesheet" href="/assets/css/xmo-v2.css?20261104-m2b">
+  <script src="/assets/js/xmo-site.js?20261104-m2b" defer></script>
+  <script src="/assets/js/forms.js?20261104-m2b" defer></script>
+  <link rel="canonical" href="https://xmoworks.ae/early-access/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XMO Works">
+  <meta property="og:title" content="XMO Works Early Access | Product updates">
+  <meta property="og:description" content="Opt in to XMO Works product updates, resources and information on selected pilot opportunities.">
+  <meta property="og:url" content="https://xmoworks.ae/early-access/">
 </head>
-<body data-page="/early-access/" >
+<body data-page="/early-access/" data-static-page="true">
+  <a class="xmo-skip" href="#app">Skip to content</a>
   <div class="xmo-shell">
     <header class="xmo-nav">
       <a href="/" aria-label="XMO Works home"><img class="xmo-logo" src="/assets/brand/xmo-logo-dark.png" alt="XMO Works"></a>
@@ -29,7 +36,35 @@
         <a href="/contact/">Contact</a>
       </nav>
     </header>
-    <main id="app"><section class="xmo-panel xmo-loading"><p>Loading XMO Works…</p></section></main>
+    <main id="app" tabindex="-1">
+      <section class="xmo-hero xmo-panel">
+        <p class="xmo-eyebrow">XMO Works Early Access</p>
+        <h1>Get XMO Works product updates</h1>
+        <p class="xmo-lead">Choose whether to receive product updates, resources and information on selected pilot opportunities.</p>
+        <p>Signing up expresses interest in updates. It does not reserve a pilot place, guarantee access or place an order. To stop receiving updates, email <a href="mailto:hello@xmoworks.ae">hello@xmoworks.ae</a>. <a href="/privacy/">Privacy and data use</a>.</p>
+
+      </section>
+      <section class="xmo-section xmo-panel">
+        <div class="xmo-section-heading"><h2>Join the updates list</h2></div>
+        <noscript><p>The updates form needs JavaScript.</p></noscript><p>You can also email <a href="mailto:hello@xmoworks.ae">hello@xmoworks.ae</a>.</p><div hidden data-xmo-form-shell><form id="early-access-form" class="xmo-form">
+          <input type="text" name="website" class="xmo-honeypot" tabindex="-1" autocomplete="off">
+          <label>Name <input name="full_name" autocomplete="name"></label>
+          <label>Email <input name="email" type="email" autocomplete="email" required></label>
+          <label>Organization <input name="organization_name" autocomplete="organization"></label>
+          <label>Which area is most relevant?
+            <select name="lane_interest">
+              <option value="">Not sure yet</option>
+              <option value="starter">We do not have a formal PMO</option>
+              <option value="mini">Our PMO is one or two people</option>
+              <option value="decision_cycle">We have an established PMO / portfolio office</option>
+            </select>
+          </label>
+          <label class="xmo-check"><input type="checkbox" required> I agree to receive XMO Works product updates, resources and related information.</label>
+          <button class="xmo-btn xmo-btn-primary" type="submit">Join Early Access</button>
+          <div class="xmo-form-status" aria-live="polite"></div>
+        </form></div>
+      </section>
+    </main>
     <footer class="xmo-footer">
       <img class="xmo-footer-logo" src="/assets/brand/xmo-logo-dark.png" alt="XMO Works">
       <div>Stop reporting projects. Start proving value.</div>
