@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XMO Decision Cycle | Portfolio Governance Pilot</title>
-  <meta name="description" content="Explore a human-reviewed pilot for PMO and transformation teams that prepare recurring executive portfolio decisions.">
+  <title>XMO Decision Cycle | Executive Portfolio Decision Pilot</title>
+  <meta name="description" content="Explore a human-reviewed design-partner pilot for one recurring executive portfolio decision forum. Qualification, scope and availability confirmed separately.">
   <link rel="canonical" href="https://xmoworks.ae/decision-cycle/">
   <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/brand/xmo-icon.png">
@@ -15,8 +15,39 @@
   <link rel="stylesheet" href="/assets/css/xmo-v2.css?v=20261005-legal-61b80e83522a">
   <script src="/assets/js/xmo-site.js?v=20261005-legal-7d523dd95fae" defer></script>
   
+  <style>
+    /* HO070 T3: page-local presentation only; shared styles and scripts stay unchanged. */
+    body[data-page="/decision-cycle/"] #decision-cycle-heading { scroll-margin-top: 160px; }
+    body[data-page="/decision-cycle/"] #fictional-decision-brief { scroll-margin-top: 160px; }
+    body[data-page="/decision-cycle/"] :focus-visible { outline: 3px solid #65E0DE; outline-offset: 4px; }
+    body[data-page="/decision-cycle/"] .xmo-consent-panel :focus-visible { outline-color: #246B89; }
+    .xmo-decision-brief p, .xmo-decision-brief td, body[data-page="/decision-cycle/"] .xmo-section li { line-height: 1.75; color: #B8C4D6; }
+    body[data-page="/decision-cycle/"] .xmo-section li + li { margin-top: 10px; }
+    .xmo-decision-brief strong { color: var(--xmo-off); }
+    .xmo-brief-table-scroll { max-width: 100%; overflow-x: auto; margin: 24px 0; border: 1px solid var(--xmo-border); border-radius: 12px; }
+    .xmo-brief-table-scroll table { width: 100%; min-width: 32rem; border-collapse: collapse; table-layout: fixed; }
+    .xmo-brief-table-scroll caption { padding: 14px 16px; text-align: left; color: var(--xmo-gold-soft); font-weight: 700; line-height: 1.5; }
+    .xmo-brief-table-scroll th, .xmo-brief-table-scroll td { padding: 14px 16px; text-align: left; vertical-align: top; overflow-wrap: anywhere; border-top: 1px solid var(--xmo-border); }
+    .xmo-brief-table-scroll th { color: var(--xmo-off); background: var(--xmo-card-soft); line-height: 1.5; }
+    .xmo-brief-table-scroll th:first-child { width: 30%; }
+    @media (max-width: 800px) {
+      body[data-page="/decision-cycle/"] #decision-cycle-heading, body[data-page="/decision-cycle/"] #fictional-decision-brief { scroll-margin-top: 16px; }
+    }
+    @media (max-width: 600px) {
+      .xmo-brief-table-scroll table { min-width: 0; display: block; }
+      .xmo-brief-table-scroll caption { display: block; width: 100%; }
+      .xmo-brief-table-scroll thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+      .xmo-brief-table-scroll tbody, .xmo-brief-table-scroll tr, .xmo-brief-table-scroll td { display: block; width: 100%; }
+      .xmo-brief-table-scroll td:first-child { font-weight: 700; color: var(--xmo-gold-soft); padding-bottom: 4px; }
+      .xmo-brief-table-scroll td + td { border-top: 0; padding-top: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html:has(body[data-page="/decision-cycle/"]) { scroll-behavior: auto; }
+    }
+  </style>
 </head>
 <body data-page="/decision-cycle/" data-static-page="true">
+  <a class="xmo-skip" href="#decision-cycle-heading">Skip to content</a>
   <div class="xmo-shell">
     <header class="xmo-nav">
       <a href="/" aria-label="XMO Works home"><img class="xmo-logo" src="/assets/brand/xmo-logo-dark.png" alt="XMO Works"></a>
@@ -30,42 +61,94 @@
         <a href="/contact/">Contact</a>
       </nav>
     </header>
-    <main id="app">
-      <section class="xmo-hero xmo-panel">
-        <h1>XMO Decision Cycle for portfolio governance teams</h1>
+    <main id="app" tabindex="-1">
+            <section class="xmo-hero xmo-panel">
+        <h1 id="decision-cycle-heading" tabindex="-1">XMO Decision Cycle for recurring executive portfolio decisions</h1>
       </section>
       <section class="xmo-section xmo-panel">
         <div class="xmo-section-heading">
-          <h2>When decision preparation slows the governance cycle</h2>
-          <p>PMO and transformation teams often bring project status, resource constraints and unresolved decisions together from several sources. Decision Cycle is designed for teams with an executive sponsor and a recurring portfolio decision forum.</p>
+<h2>One forum, one decision-preparation problem</h2>
+<p>Your PMO, transformation or value-office team is preparing a recurring executive portfolio review. Project reports describe progress, but the sponsor still needs to see which decision is required, the options, the source evidence and who owns the next action. XMO Decision Cycle is an exploratory, human-reviewed design-partner pilot focused on one such forum.</p>
         </div>
       </section>
       <section class="xmo-section xmo-panel">
         <div class="xmo-section-heading">
-          <h2>What a design-partner pilot would cover</h2>
-          <p>Agree the forum, decision responsibilities and source access. Use approved project reports, risks and dependencies to prepare a source-linked executive brief that makes decisions, owners, options and open assumptions visible. The proposed pilot includes a capacity and exception view and a decision and action log. XMO would work with your team to agree what to measure before the pilot. Your team reviews the evidence and retains responsibility for decisions and approvals.</p>
+<h2>Who may qualify</h2>
+<p>The existing design-partner scope is for teams with ten or more active initiatives, an accountable executive sponsor, a named operating owner and a recurring executive portfolio decision forum. The team needs approved source material and must permit human review before executive outputs.</p>
         </div>
+      </section>
+      <section class="xmo-section xmo-panel">
+        <div class="xmo-section-heading">
+<h2>What a scoped pilot could cover</h2>
+<p>Agree the forum, decision responsibilities, source access and what to measure before the pilot. Using approved project reports, risks and dependencies, the proposed scope includes:</p>
+<ul>
+  <li>A source-linked executive brief showing the decision needed, options, owners and open assumptions.</li>
+  <li>A decision and action log recording the decision owner, disposition and follow-up owner and date.</li>
+  <li>A capacity and exception view using agreed source information to show constraints and questions for the forum.</li>
+</ul>
+<p>Your team reviews the evidence and retains responsibility for decisions and approvals. <a href="#fictional-decision-brief">See a fictional portfolio decision brief</a>.</p>
+        </div>
+      </section>
+      <section class="xmo-section xmo-panel">
+        <div class="xmo-section-heading">
+<h2>When this scope does not fit</h2>
+<p>This scope does not fit teams without a sponsor, operating owner, approved source material, human review or recurring executive forum, or portfolios with fewer than ten active initiatives. It excludes full PMO or enterprise governance redesign, benefits tracking or assurance, PPM replacement, production integrations, hands-on project delivery and autonomous executive decisions.</p>
+        </div>
+      </section>
+      <section class="xmo-section xmo-panel xmo-decision-brief" aria-labelledby="fictional-decision-brief">
+<h2 id="fictional-decision-brief" tabindex="-1">Fictional illustration: two initiatives need the same specialist</h2>
+<p><strong>FICTIONAL ILLUSTRATION — all roles, records and figures below are invented.</strong> This is an authored explanation of the proposed brief format, not a customer case, delivered pilot result or output from a released product.</p>
+<p><strong>Forum:</strong> recurring executive review of a twelve-initiative portfolio. <strong>Decision owner:</strong> executive sponsor. <strong>Brief owner:</strong> PMO operating lead. <strong>Status:</strong> draft for human review; no decision approved.</p>
+<p><strong>Decision requested:</strong> choose which initiative receives priority access to the shared data specialist in the next review period.</p>
+<div class="xmo-brief-table-scroll" role="region" aria-labelledby="brief-table-1-caption" tabindex="0">
+<table>
+  <caption id="brief-table-1-caption">Invented source references for this illustration</caption>
+  <thead><tr><th scope="col">Reference</th><th scope="col">Fictional input and owner</th></tr></thead>
+  <tbody>
+    <tr><td>F1</td><td>Portfolio extract: twelve active initiatives; PMO operating lead.</td></tr>
+    <tr><td>F2</td><td>Initiative A plan: six specialist-days requested for launch preparation; Initiative A lead.</td></tr>
+    <tr><td>F3</td><td>Initiative B plan: five specialist-days requested for reporting changes; Initiative B lead.</td></tr>
+    <tr><td>F4</td><td>Capacity sheet: eight specialist-days available across the period; resource owner.</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Capacity exception:</strong> six + five = eleven requested specialist-days against eight available: a three-day gap (F2–F4). These are effort units, not a forecast of calendar delay.</p>
+<div class="xmo-brief-table-scroll" role="region" aria-labelledby="brief-table-2-caption" tabindex="0">
+<table>
+  <caption id="brief-table-2-caption">Options for the sponsor to review</caption>
+  <thead><tr><th scope="col">Option</th><th scope="col">Allocation and unresolved condition</th></tr></thead>
+  <tbody>
+    <tr><td>A — prioritize launch preparation</td><td>Allocate six days to A and two to B; defer three days of B. B's lead must confirm whether its work can be split.</td></tr>
+    <tr><td>B — prioritize reporting changes</td><td>Allocate five days to B and three to A; defer three days of A. A's lead must explain the launch dependency.</td></tr>
+    <tr><td>C — retain both requests</td><td>Identify three additional specialist-days. Availability, suitability and any cost or approval remain unknown.</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Assumptions and risks:</strong> F2 and F3 estimates use comparable effort units; F4 remains current; work may be divisible. Unrecorded dependencies, stale capacity or indivisible work could invalidate an allocation. No delivery date or outcome is established.</p>
+<p><strong>Conditional recommendation for review:</strong> consider A only if the sponsor confirms A's priority and both initiative leads validate its dependencies and the proposed split. Otherwise return the brief for clarification before allocation.</p>
+<p><strong>Decision/action log:</strong> sponsor — select, defer or request clarification at the forum; PMO lead — record disposition and confirmed follow-up dates; initiative leads and resource owner — validate estimates, dependencies and capacity before commitment. Follow-up dates are not yet agreed.</p>
+<p><strong>Benefit hypothesis — UNVERIFIED:</strong> prioritizing A might protect intended launch readiness. Who owns that business outcome, what baseline or proxy exists, and what evidence would test the hypothesis? These are questions for the sponsor to verify, not a benefits-tracking service or a claim of business value achieved.</p>
       </section>
       <section class="xmo-section xmo-cta-panel">
-        <h2>Discuss whether your team is a fit</h2>
-        <p>XMO is taking exploratory enquiries for the Decision Cycle design-partner pilot. Scope, capacity and timing are confirmed separately.</p>
-        <div class="xmo-actions">
-          <a class="xmo-btn xmo-btn-primary" href="/contact/" data-cta-code="contact_xmo">Discuss pilot fit</a>
-          <a class="xmo-btn xmo-btn-secondary" href="/finder/" data-cta-code="start_finder">Start XMO Finder</a>
-        </div>
+<h2>Discuss whether your team is a fit</h2>
+<p>XMO is taking exploratory enquiries for the Decision Cycle design-partner pilot. An enquiry does not reserve a slot or place an order. Any pilot requires qualification, confirmed capacity, agreed sources, scope, measurement and terms, and separate approval. Timing is confirmed separately.</p>
+<div class="xmo-actions">
+  <a class="xmo-btn xmo-btn-primary" href="/contact/" data-cta-code="contact_xmo">Discuss pilot fit</a>
+  <a class="xmo-btn xmo-btn-secondary" href="/finder/" data-cta-code="start_finder">Start XMO Finder</a>
+</div>
       </section>
       <section class="xmo-section">
-        <div class="xmo-section-heading"><h2>Common questions</h2></div>
-        <div class="xmo-faqs">
-          <details>
-            <summary>Do we have to migrate from Jira, Smartsheet, Power BI, Excel or another tool?</summary>
-            <p>During qualification, we discuss the tools, approved reports and governance process your team already uses.</p>
-          </details>
-          <details>
-            <summary>What would we measure in a pilot?</summary>
-            <p>Before a pilot, we would agree what to measure with your team. That could include the preparation time for one review or how clearly the brief records the decisions needed.</p>
-          </details>
-        </div>
+<div class="xmo-section-heading"><h2>Common questions</h2></div>
+<div class="xmo-faqs">
+<details>
+  <summary>Do we have to migrate from Jira, Smartsheet, Power BI, Excel or another tool?</summary>
+  <p>During qualification, we discuss the tools, approved reports and governance process your team already uses. PPM replacement and production integrations are outside this scope.</p>
+</details>
+<details>
+  <summary>What would we measure in a pilot?</summary>
+  <p>Before a pilot, we would agree what to measure with your team. That could include preparation time for one review or how clearly the brief records decisions needed, against an agreed baseline. A reduction in time, cost or delay is not guaranteed. Business-value ownership and baseline evidence are questions to verify, not an independent benefits-tracking or assurance service.</p>
+</details>
+</div>
       </section>
     </main>
     <footer class="xmo-footer">
