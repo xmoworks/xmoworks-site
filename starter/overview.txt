@@ -1,0 +1,25 @@
+XMO Starter · Concept in validation
+
+# Lightweight project governance for growing teams
+
+When work crosses teams, informal updates can hide priorities, owners and dependencies. Starter explores how a growing organization can make those commitments visible.
+
+**Availability:** Enquiries are open. An enquiry does not reserve a slot or place an order. Any pilot requires qualification, confirmed capacity, agreed scope and terms, and separate approval.
+
+[Discuss Starter pilot fit](https://xmoworks.ae/contact/?lane=starter)
+
+## Who it is for
+
+Growing organizations typically coordinating 3–12 active initiatives without a formal project management office (PMO). A sponsor who can set priorities and an owner who can keep the project list current are important.
+
+Ask separately if you need outsourced project delivery, enterprise redesign or a ready-to-install platform.
+
+## What a scoped pilot could cover
+
+Start with an approved project list, owners, dates, recent updates and examples of decisions that stalled. Agree how to flag exceptions, who resolves them and when to escalate.
+
+A possible outcome is a shared list of priorities and owners, a short review agenda and an action log. Use existing tools where they fit. Your team retains responsibility for delivery and decisions.
+
+## Choose the right level of support
+
+A task tracker records assignments. A coordination routine also defines who can change priorities and where dependencies get resolved. If you already run a small PMO, explore [XMO Mini](https://xmoworks.ae/mini/). Read [when a formal PMO may help](https://xmoworks.ae/insights/not-every-organization-needs-a-pmo.html).
