@@ -1,0 +1,101 @@
+XMO Agentic PMO · In development
+
+# Change Impact Agent research for project teams
+
+We are developing focused AI specialists for project managers and PMO teams. Our first candidate helps examine a change against the agreed scope, identify missing information and compare its implications before commitment.
+
+[Help shape the first agents](https://xmoworks.ae/agentic-pmo/#survey)
+
+[Register interest in early access](https://xmoworks.ae/agentic-pmo/#early-access)
+
+In development. Availability and supported editions will be confirmed after testing.
+
+First workflow · Change Impact
+
+## Before you accept a change, understand what it affects.
+
+Project managers and PMO teams often need to decide whether to fund, swap or defer a proposed scope change. The Change Impact Agent is a prototype in development, tested internally on fictional cases. It compares a proposed change with the agreed project baseline and uses supplied estimates and delivery information to draft a brief with options and gaps in the evidence.
+
+Cost and schedule implications depend on the information provided. Unsupported figures and dates remain unknown. The responsible decision owner reviews the brief and decides. The survey is for research. You can separately opt in to development updates. Please do not submit confidential project information. For a recurring executive review, see [Decision Cycle](https://xmoworks.ae/decision-cycle/). Read [how to check an AI-assisted portfolio brief](https://xmoworks.ae/insights/article.html?slug=checking-ai-portfolio-brief).
+
+### Check the baseline
+
+Understand what was agreed and what the new request changes.
+
+### Surface the gaps
+
+Ask for missing estimates and identify conflicting evidence.
+
+### Compare the choices
+
+Examine supported implications of funding, swapping or deferring scope.
+
+### Prepare the decision
+
+Put assumptions and trade-offs in front of the person who decides.
+
+Fictional illustration
+
+### A small request can change the work.
+
+This illustrates the intended workflow. It is not an output from a released agent.
+
+#### Agreed scope
+
+One English dashboard using a CSV data source.
+
+#### New request
+
+Add Arabic and a live data connection.
+
+#### Supplied estimates
+
+12 development hours + 4 testing hours = 16 hours. 16 × AED 250/hour = **AED 4,000 additional internal cost**. This is not a sales price.
+
+#### Decision options
+
+Fund the addition, swap existing scope, or defer it. A finish date needs a complete schedule, calendar and capacity model.
+
+Planned Solo experience
+
+## A specialist you can use independently.
+
+The planned Solo experience is self-service: answer the setup questions, receive a configured agent pack and use it in a supported AI environment. Editions and prerequisites will be confirmed after testing.
+
+Future vision
+
+## One specialist first.
+
+Additional PMO agents and supervised orchestration can follow as their value and deployment are demonstrated. These are future directions, not currently available capabilities.
+
+Shape what comes next
+
+## Your work. Your priorities.
+
+Tell us about your recent project work. Which problem, if any, caused the greatest difficulty in the past 30 days, and which improvement would matter most? Please avoid client names, confidential figures and project documents. Contact details are optional and separate from your answers.
+
+Email me XMO Agentic PMO development and early-access updates.
+
+Optional. Research participation alone does not subscribe you to updates. You may withdraw via hello@xmoworks.ae.
+
+Speritas Digital LLC uses these answers for XMO product research. Optional email is used only for the updates you request. [Privacy and data use](https://xmoworks.ae/privacy/) · [Contact us](mailto:hello@xmoworks.ae)
+
+Clear expectations
+
+## What you can expect today.
+
+### Can I buy or download the agent now?
+
+XMO Agentic PMO is in development. This page gathers research and optional interest in updates. It does not offer a purchase or reserve a place in a paid pilot.
+
+### Which AI platforms are supported?
+
+Supported editions will be confirmed after testing. We do not yet claim compatibility with a particular host or universal integration.
+
+### Is this organizational change management?
+
+The first workflow concerns project scope, budget, schedule and commitments. Organizational adoption and change management is a separate possible future job.
+
+### Do I need to share confidential project data?
+
+No. Please keep your example non-confidential. There is no file upload, and no credentials are requested.
